@@ -48,6 +48,9 @@ dependencies:
   google_fonts: ^3.0.1
   auto_size_text: ^3.0.0
 
+  audio_waveforms: ^1.0.1
+  audio_progress_bars: ^0.0.1
+
   
 
 dev_dependencies:
@@ -78,6 +81,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/audio/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -21,6 +21,7 @@ List<Color> homeListviewColors = [];
 const primaryColor = Color.fromRGBO(30, 186, 220, 1);
 const secondaryColor = Color.fromRGBO(225, 211, 109, 1);
 const greenColor = Color.fromRGBO(92, 205, 131, 1);
+const lightgreenColor = Color.fromRGBO(104, 204, 196, 1);
 const greyColor = Color.fromRGBO(191, 193, 207, 1);
 const nightBlue1 = Color.fromRGBO(45, 89, 207, 1);
 const nightBlue2 = Color.fromRGBO(15, 22, 97, 1);

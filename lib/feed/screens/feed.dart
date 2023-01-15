@@ -21,22 +21,6 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          leading: Icon(
-            Iconsax.menu,
-            color: Colors.black,
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: CircleAvatar(
-                radius: 17,
-              ),
-            )
-          ],
-          backgroundColor: Colors.white,
-          elevation: 0,
-        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(

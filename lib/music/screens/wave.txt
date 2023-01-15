@@ -1,0 +1,22 @@
+ Center(
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  child: AudioProgressBars(
+                    isHorizontallyAnimated: false,
+                    isVerticallyAnimated: false,
+                    progressPercentage: 60,
+                    listOfHeights: randomList,
+                    width: 352,
+                    initalColor: Colors.grey,
+                    progressColor: primaryColor,
+                    backgroundColor: Colors.white,
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                )
+              ],
+            ),
+          ),

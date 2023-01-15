@@ -15,6 +15,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  audio_progress_bars:
+    dependency: "direct main"
+    description:
+      name: audio_progress_bars
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
+  audio_waveforms:
+    dependency: "direct main"
+    description:
+      name: audio_waveforms
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   auto_size_text:
     dependency: "direct main"
     description:
