@@ -99,13 +99,16 @@ class _Quiz2State extends State<Quiz2> {
           decoration: BoxDecoration(
               border: Border.all(
                 width: 2,
-                color: isSelected == true ? Colors.blue : Colors.black,
+                color: isSelected == true ? Colors.blue : Colors.grey,
               ),
               borderRadius: BorderRadiusDirectional.circular(10)),
           child: Center(
             child: Text(
               answer.answerText,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade800),
             ),
           )),
     );
@@ -115,7 +118,9 @@ class _Quiz2State extends State<Quiz2> {
     return Column(
       children: [
         Text("Question ${currentIndex + 1} "),
-        Text("score:  $Score "),
+        SizedBox(
+          height: 5,
+        ),
         SizedBox(
           height: 20,
         ),
@@ -123,7 +128,8 @@ class _Quiz2State extends State<Quiz2> {
           width: double.infinity,
           child: Text(
             widget.questionList[currentIndex].questionText,
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
           ),
         )
       ],
