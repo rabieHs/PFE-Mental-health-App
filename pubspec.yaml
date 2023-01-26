@@ -50,6 +50,11 @@ dependencies:
 
   audio_waveforms: ^1.0.1
   audio_progress_bars: ^0.0.1
+  shared_preferences: ^2.0.17
+  provider: ^6.0.5
+  audioplayers: ^3.0.0
+  just_audio: ^0.9.30
+  rxdart: ^0.27.5
 
   
 

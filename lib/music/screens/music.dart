@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/music/models/music.dart';
 import 'package:mental_health_app/music/screens/play_screen.dart';
+import 'package:mental_health_app/music/services/music_services.dart';
 import 'package:mental_health_app/music/widgets/music_card.dart';
 import 'package:mental_health_app/music/widgets/top_listened_music_widget.dart';
 
@@ -11,6 +13,8 @@ class MusicScreen extends StatefulWidget {
   @override
   State<MusicScreen> createState() => _MusicScreenState();
 }
+
+final MusicServices _musicServices = MusicServices();
 
 class _MusicScreenState extends State<MusicScreen> {
   @override
@@ -25,21 +29,42 @@ class _MusicScreenState extends State<MusicScreen> {
                 SizedBox(
                   height: 25,
                 ),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 15,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PlayScreen(
-                                    image: "assets/images/bg4.jpg",
-                                  )));
-                        },
-                        child:
-                            MusicCard(backgroundImage: "assets/images/bg5.jpg"),
-                      );
+                FutureBuilder<List<Music>>(
+                    future: _musicServices.getMusic("Stress"),
+                    builder: (context, snapshot) {
+                      final data = snapshot.data;
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: Text("no Music"),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => PlayScreen(
+                                          image: data[index].image,
+                                          title: data[index].title,
+                                          url: data[index].url,
+                                          musicList: snapshot.data!,
+                                          index: index,
+                                        )));
+                              },
+                              child: MusicCard(
+                                backgroundImage: data[index].image,
+                                title: data[index].title,
+                              ),
+                            );
+                          });
                     })
               ],
             )),

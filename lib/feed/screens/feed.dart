@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mental_health_app/feed/models/tasks.dart';
+import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/meditation_card.dart';
 import 'package:mental_health_app/feed/widgets/sleep_card.dart';
 import 'package:mental_health_app/quotes/widgets/quotes_card.dart';
@@ -17,6 +19,24 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
+  late TasksServices _tasksServices;
+  List<Tasks> tasks = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _tasksServices = TasksServices();
+    initTasks();
+    setState(() {});
+  }
+
+  initTasks() async {
+    tasks = await _tasksServices.getTasks1("Stress");
+
+    print(tasks.last.title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,12 +103,14 @@ class _FeedScreenState extends State<FeedScreen> {
                 ListView(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: [
+                  children: const [
                     Padding(
                       padding: const EdgeInsets.only(
                         bottom: 10,
                       ),
-                      child: TaskCard(),
+                      child: TaskCard(
+                        mood: "Stress",
+                      ),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 10),

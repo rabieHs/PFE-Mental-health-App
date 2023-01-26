@@ -5,7 +5,9 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class MusicCard extends StatelessWidget {
   final String backgroundImage;
-  const MusicCard({super.key, required this.backgroundImage});
+  final String title;
+  const MusicCard(
+      {super.key, required this.backgroundImage, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class MusicCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     image: DecorationImage(
-                        image: AssetImage(backgroundImage), fit: BoxFit.cover)),
+                        image: NetworkImage(backgroundImage.toString()),
+                        fit: BoxFit.cover)),
               ),
               Icon(
                 Icons.play_circle,
@@ -41,7 +44,7 @@ class MusicCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Painting Forest",
+                  title,
                   style: TextStyle(
                       fontSize: 15,
                       fontFamily: 'Poppins',

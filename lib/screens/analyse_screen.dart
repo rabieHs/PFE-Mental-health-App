@@ -51,7 +51,7 @@ class _AnalyseScreenState extends State<AnalyseScreen> {
           .doc()
           .set({
         "checkTime": DateTime.now(),
-        "Mood": "null",
+        "Mood": "null", //add the mood
         "isChecked": true,
       });
     } else {
@@ -60,7 +60,10 @@ class _AnalyseScreenState extends State<AnalyseScreen> {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection("Statics")
           .doc(id)
-          .update({"isChecked": true});
+          .update({
+        "isChecked": true,
+        //mood
+      });
     }
   }
 }
