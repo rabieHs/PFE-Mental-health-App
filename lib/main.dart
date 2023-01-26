@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mental_health_app/analyse/screens/text_classification.dart';
 import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/models/check_data.dart';
+import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
 
@@ -85,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 print("yes data");
 
                 if (checked == true) {
-                  return const HomeScreen();
+                  return const EmotionRecognitionScreen(); //home
 
                   ///home Screen
                 } else {

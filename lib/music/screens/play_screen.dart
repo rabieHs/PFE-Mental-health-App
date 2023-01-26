@@ -1,11 +1,10 @@
 import 'dart:math';
 
-import 'package:audio_progress_bars/audio_progress_bars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:audio_waveforms/audio_waveforms.dart';
+
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/music/models/music.dart';
@@ -35,7 +34,7 @@ class _PlayScreenState extends State<PlayScreen> {
   AudioPlayer audioPlayer = AudioPlayer();
   List<AudioSource> source = [];
   int _index = 0;
-  final PlayerController playerController = PlayerController();
+
   @override
   void initState() {
     // TODO: implement initState

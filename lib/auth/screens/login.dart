@@ -11,7 +11,7 @@ import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/services/notification_services.dart';
 import 'package:mental_health_app/auth/widgets/custom_text_field.dart';
 
-import '../widgets/sign_button.dart';
+import '../../consts/widgets/custom_button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -69,7 +69,7 @@ class _LoginState extends State<Login> {
             ),
             GestureDetector(
               onTap: signInUser,
-              child: signButton(
+              child: CustomButton(
                 text: "LOGIN",
               ),
             ),

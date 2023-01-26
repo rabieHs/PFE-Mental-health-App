@@ -5,7 +5,6 @@
 import FlutterMacOS
 import Foundation
 
-import audio_progress_bars
 import audio_session
 import audioplayers_darwin
 import cloud_firestore
@@ -17,7 +16,6 @@ import path_provider_macos
 import shared_preferences_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  AudioProgressBarsPlugin.register(with: registry.registrar(forPlugin: "AudioProgressBarsPlugin"))
   AudioSessionPlugin.register(with: registry.registrar(forPlugin: "AudioSessionPlugin"))
   AudioplayersDarwinPlugin.register(with: registry.registrar(forPlugin: "AudioplayersDarwinPlugin"))
   FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))

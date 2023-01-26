@@ -10,7 +10,7 @@ import 'package:mental_health_app/services/notification_services.dart';
 
 import '../../consts/colors.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/sign_button.dart';
+import '../../consts/widgets/custom_button.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -82,7 +82,7 @@ class _RegisterState extends State<Register> {
             ),
             GestureDetector(
               onTap: signUpUser,
-              child: signButton(
+              child: CustomButton(
                 text: "REGISTER",
               ),
             ),
