@@ -8,6 +8,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/music/models/music.dart';
+import 'package:ripple_wave/ripple_wave.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 
 import '../widgets/seek_bar.dart';
@@ -93,10 +94,23 @@ class _PlayScreenState extends State<PlayScreen> {
           SizedBox(
             height: 50,
           ),
-          CircleAvatar(
-            backgroundImage: NetworkImage(widget.musicList[_index].image),
-            radius: 100,
-          ),
+          audioPlayer.playing
+              ? Container(
+                  width: 300,
+                  height: 300,
+                  child: RippleWave(
+                    color: primaryColor,
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(widget.musicList[_index].image),
+                      radius: 100,
+                    ),
+                  ),
+                )
+              : CircleAvatar(
+                  backgroundImage: NetworkImage(widget.musicList[_index].image),
+                  radius: 100,
+                ),
           SizedBox(
             height: 50,
           ),
@@ -127,7 +141,7 @@ class _PlayScreenState extends State<PlayScreen> {
                   builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: SeekBar(
                         position: positionData?.position ?? Duration.zero,
                         duration: positionData?.duration ?? Duration.zero,

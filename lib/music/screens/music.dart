@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/feed/widgets/shimmer_widget.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:mental_health_app/music/screens/play_screen.dart';
 import 'package:mental_health_app/music/services/music_services.dart';
@@ -40,7 +41,117 @@ class _MusicScreenState extends State<MusicScreen> {
                       }
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerWidget(height: 50, widht: 50),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      ShimmerWidget(height: 15, widht: 200),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ShimmerWidget(height: 15, widht: 200),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerWidget(height: 50, widht: 50),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      ShimmerWidget(height: 15, widht: 200),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ShimmerWidget(height: 15, widht: 200),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerWidget(height: 50, widht: 50),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      ShimmerWidget(height: 15, widht: 200),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ShimmerWidget(height: 15, widht: 200),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerWidget(height: 50, widht: 50),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      ShimmerWidget(height: 15, widht: 200),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ShimmerWidget(height: 15, widht: 200),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerWidget(height: 50, widht: 50),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      ShimmerWidget(height: 15, widht: 200),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ShimmerWidget(height: 15, widht: 200),
+                                    ],
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         );
                       }
                       return ListView.builder(

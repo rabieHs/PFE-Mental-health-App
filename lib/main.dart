@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mental_health_app/analyse/screens/text_classification.dart';
 import 'package:mental_health_app/consts/colors.dart';
-import 'package:mental_health_app/models/check_data.dart';
+
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
@@ -87,7 +87,7 @@ class _MyAppState extends State<MyApp> {
                 print("yes data");
 
                 if (checked == true) {
-                  return const EmotionRecognitionScreen(); //home
+                  return const HomeScreen(); //home
 
                   ///home Screen
                 } else {

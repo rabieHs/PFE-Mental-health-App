@@ -3,6 +3,8 @@ import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/check_button.dart';
+import 'package:mental_health_app/feed/widgets/shimmer_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class TaskCard extends StatefulWidget {
   final String mood;
@@ -58,8 +60,37 @@ class _TaskCardState extends State<TaskCard> {
                 Container(
                   width: 180,
                   child: tasks == null
-                      ? Center(
-                          child: CircularProgressIndicator(),
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ShimmerWidget(height: 10, widht: 10),
+                                ShimmerWidget(height: 10, widht: 155)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ShimmerWidget(height: 10, widht: 10),
+                                ShimmerWidget(height: 10, widht: 155)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ShimmerWidget(height: 10, widht: 10),
+                                ShimmerWidget(height: 10, widht: 155)
+                              ],
+                            )
+                          ],
                         )
                       : ListView(
                           shrinkWrap: true,

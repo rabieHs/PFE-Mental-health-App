@@ -58,6 +58,9 @@ dependencies:
 
 
   tflite_flutter: ^0.8.0
+  shimmer: ^2.0.0
+ 
+  ripple_wave: ^0.0.2
 
   
 
