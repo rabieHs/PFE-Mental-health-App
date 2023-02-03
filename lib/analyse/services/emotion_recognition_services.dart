@@ -32,6 +32,8 @@ class EmotionRecognitionServices {
     final bytes = File(file.path).readAsBytesSync();
     var url = 'http://192.168.80.198:5000/predict';
     final response = await http.post(Uri.parse(url), body: bytes);
+    print(response.statusCode);
+    print(response.body);
     Emotion = json.decode(response.body)['emotion'];
     return Emotion;
   }

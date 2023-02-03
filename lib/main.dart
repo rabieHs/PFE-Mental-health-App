@@ -4,18 +4,26 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mental_health_app/analyse/screens/text_classification.dart';
+import 'package:mental_health_app/auth/provider/user_provider.dart';
+import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/consts/colors.dart';
 
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
+import 'package:provider/provider.dart';
 
+import 'analyse/models/questions.dart';
+import 'analyse/screens/quiz_screen.dart';
 import 'auth/screens/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -26,43 +34,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final AuthServices authServices = AuthServices();
   // This widget is the root of your application.
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   bool? checked;
-
-  Future<QuerySnapshot> getChecks() {
-    return firestore
-        .collection("Users")
-        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
-        .collection("Statics")
-        .orderBy("checkTime", descending: true)
-        .limit(1)
-        .get();
-  }
-
-  Future<bool> checkUser() async {
-    bool? compred;
-    QuerySnapshot check = await getChecks();
-    var snapshot = check.docs.first.data() as Map<String, dynamic>;
-    DateTime checkTime = snapshot["checkTime"].toDate();
-    bool isChecked = snapshot["isChecked"];
-    if (isChecked == true && (checkTime.day == DateTime.now().day)) {
-      print("true");
-      compred = true;
-    } else {
-      compred = false;
-    }
-
-    return compred;
-  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     bool val;
-    checkUser().then((value) {
+    authServices.checkUser().then((value) {
       checked = value;
+      authServices.getUserData(context);
       setState(() {});
     });
   }
@@ -87,11 +71,11 @@ class _MyAppState extends State<MyApp> {
                 print("yes data");
 
                 if (checked == true) {
-                  return const HomeScreen(); //home
+                  return HomeScreen(); //home
 
                   ///home Screen
                 } else {
-                  return AnalyseScreen();
+                  return EmotionRecognitionScreen();
                 }
               } else if (snapshot.hasError) {
                 return (Center(

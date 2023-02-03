@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/analyse/services/analyse_services.dart';
 import 'package:mental_health_app/analyse/services/question_services.dart';
 import 'package:mental_health_app/consts/widgets/custom_button.dart';
+import 'package:mental_health_app/screens/home.dart';
 import 'dart:math' as math;
 
 import '../models/questions.dart';
@@ -68,11 +70,16 @@ class _Quiz2State extends State<Quiz2> {
             selectedAnswer = null;
           });
           if (currentIndex == 0) {
+            final AnalyseServices analyseServices = AnalyseServices();
+
             print(Score);
             print(scoreList);
             String output = QuestionServices()
                 .getscore(Score, widget.questionType, scoreList);
+            analyseServices.checkAndUpdateUserMood(output);
             print(output);
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => HomeScreen()));
           }
         },
         child: CustomButton(text: "Next"));

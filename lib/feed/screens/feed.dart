@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:mental_health_app/auth/provider/user_provider.dart';
 import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/meditation_card.dart';
 import 'package:mental_health_app/feed/widgets/sleep_card.dart';
 import 'package:mental_health_app/quotes/widgets/quotes_card.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/mood_lever.dart';
 import '../widgets/task_card.dart';
@@ -39,6 +41,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context).user;
     return Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
@@ -60,7 +63,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       style: TextStyle(fontSize: 27),
                     ),
                     Text(
-                      "Rabie!",
+                      user.username,
                       style:
                           TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
                     ),

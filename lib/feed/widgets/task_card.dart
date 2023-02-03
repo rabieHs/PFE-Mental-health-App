@@ -36,7 +36,7 @@ class _TaskCardState extends State<TaskCard> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 170,
+      height: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: greenColor,
@@ -92,8 +92,7 @@ class _TaskCardState extends State<TaskCard> {
                             )
                           ],
                         )
-                      : ListView(
-                          shrinkWrap: true,
+                      : Column(
                           children: [
                             GestureDetector(
                               onDoubleTap: () {

@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
 import 'package:mental_health_app/auth/model/user.dart' as model;
+import 'package:mental_health_app/auth/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class AuthServices {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -64,5 +70,52 @@ class AuthServices {
     } catch (e) {
       print("save error : $e");
     }
+  }
+
+  void getUserData(BuildContext context) async {
+    print("getting user data runned");
+    try {
+      final userId = await FirebaseAuth.instance.currentUser!.uid;
+      final _userDoc = await firestore.collection('Users').doc(userId).get();
+      if (_userDoc != null) {
+        print("user not null");
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        Map<String, dynamic> userdata = _userDoc.data() as Map<String, dynamic>;
+        var user = model.User.fromMap(userdata);
+        userProvider.setUserFromModel(user);
+
+        print("name ${userProvider.user.username}");
+      } else {
+        print("user null");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<QuerySnapshot> getChecks() {
+    return firestore
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid.toString())
+        .collection("Statics")
+        .orderBy("checkTime", descending: true)
+        .limit(1)
+        .get();
+  }
+
+  Future<bool> checkUser() async {
+    bool? compred;
+    QuerySnapshot check = await getChecks();
+    var snapshot = check.docs.first.data() as Map<String, dynamic>;
+    DateTime checkTime = snapshot["checkTime"].toDate();
+    bool isChecked = snapshot["isChecked"];
+    if (isChecked == true && (checkTime.day == DateTime.now().day)) {
+      print("true");
+      compred = true;
+    } else {
+      compred = false;
+    }
+
+    return compred;
   }
 }

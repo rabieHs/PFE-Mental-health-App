@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/analyse/models/questions.dart';
 import 'package:mental_health_app/analyse/screens/quiz_screen.dart';
+import 'package:mental_health_app/analyse/services/analyse_services.dart';
 import 'package:mental_health_app/screens/home.dart';
 
 class QuestSwitcher {
@@ -9,6 +10,8 @@ class QuestSwitcher {
     switch (emotion) {
       case "Happy":
         if (textClassification == "Positive") {
+          AnalyseServices analyseServices = AnalyseServices();
+          analyseServices.checkAndUpdateUserMood("Happy");
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
@@ -64,6 +67,8 @@ class QuestSwitcher {
         break;
       case "Neutral":
         if (textClassification == "Positive") {
+          AnalyseServices analyseServices = AnalyseServices();
+          analyseServices.checkAndUpdateUserMood("Happy");
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {

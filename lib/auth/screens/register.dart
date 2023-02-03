@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/auth/screens/login.dart';
 import 'package:mental_health_app/consts/clipper.dart';
 import 'package:mental_health_app/screens/home.dart';
@@ -122,8 +123,8 @@ class _RegisterState extends State<Register> {
     String? res = await AuthServices().cretaUser(
         nameController.text, emailController.text, passwordController.text);
     if (res == "sucess") {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => EmotionRecognitionScreen()));
     } else {
       NotificationServices().showSnackBar(
         res!,

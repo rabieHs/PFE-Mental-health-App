@@ -35,9 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: CircleAvatar(
-              radius: 17,
-            ),
+            child: Icon(Iconsax.notification),
           )
         ],
         backgroundColor: Colors.white,
