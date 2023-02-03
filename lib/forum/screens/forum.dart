@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:mental_health_app/consts/colors.dart';
 
 import '../widgets/custom_sliver_appbar.dart';
+import '../widgets/post_card.dart';
 
 class ForumScreen extends StatefulWidget {
   const ForumScreen({super.key});
@@ -17,36 +14,19 @@ class _ForumScreenState extends State<ForumScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) =>
             [CustomSliverAppBar()],
         body: ListView(
+          shrinkWrap: true,
           children: [
-            Container(
-              color: Colors.black,
-              height: 265,
-              width: MediaQuery.of(context).size.width,
-              child: Column(children: []),
-            ),
-            Container(
-              color: Colors.black,
-              height: 265,
-              width: MediaQuery.of(context).size.width,
-              child: Column(children: []),
-            ),
-            Container(
-              color: Colors.black,
-              height: 265,
-              width: MediaQuery.of(context).size.width,
-              child: Column(children: []),
-            ),
-            Container(
-              color: Colors.black,
-              height: 265,
-              width: MediaQuery.of(context).size.width,
-              child: Column(children: []),
-            )
+            PostCard(),
+            PostCard(),
+            PostCard(),
+            PostCard(),
+            PostCard(),
           ],
         ),
       ),
