@@ -112,7 +112,7 @@ class _LoginState extends State<Login> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => HomeScreen()));
     } else {
-      NotificationServices().showSnackBar(res!, context, Colors.red);
+      showSnackBar(res!, context, Colors.red);
     }
   }
 }

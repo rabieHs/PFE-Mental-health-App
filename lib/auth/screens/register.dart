@@ -126,7 +126,7 @@ class _RegisterState extends State<Register> {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => EmotionRecognitionScreen()));
     } else {
-      NotificationServices().showSnackBar(
+      showSnackBar(
         res!,
         context,
         Colors.red,

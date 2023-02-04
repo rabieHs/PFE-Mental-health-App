@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/auth/provider/user_provider.dart';
+import 'package:mental_health_app/forum/services/post_services.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/custom_sliver_appbar.dart';
@@ -14,7 +15,14 @@ class ForumScreen extends StatefulWidget {
 
 class _ForumScreenState extends State<ForumScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final posts = context.watch<PostsProvider>().posts;
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -28,7 +36,7 @@ class _ForumScreenState extends State<ForumScreen> {
         body: ListView(
           shrinkWrap: true,
           children: [
-            PostCard(),
+            posts != null ? Text(posts.first.content) : Text("null"),
             PostCard(),
             PostCard(),
             PostCard(),

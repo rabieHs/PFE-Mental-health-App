@@ -9,6 +9,7 @@ import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/consts/colors.dart';
 
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
+import 'package:mental_health_app/forum/services/post_services.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (context) => UserProvider()),
+      ChangeNotifierProvider(create: (context) => PostsProvider()),
+    ],
     child: MyApp(),
   ));
 }

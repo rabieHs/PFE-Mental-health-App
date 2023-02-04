@@ -1,14 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/auth/model/user.dart';
+import 'package:mental_health_app/auth/provider/user_provider.dart';
 import 'package:mental_health_app/consts/widgets/custom_button.dart';
 import 'package:mental_health_app/consts/widgets/custom_input_text.dart';
+import 'package:mental_health_app/forum/models/post_model.dart';
+import 'package:mental_health_app/forum/services/post_services.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddPostScreen extends StatelessWidget {
   const AddPostScreen({super.key});
+  void addPost(
+    BuildContext context,
+    String username,
+    String profilePic,
+    Timestamp date,
+    String title,
+    String uid,
+    String content,
+  ) async {
+    final postId = Uuid().v1();
+    Post post = Post(
+        postId: postId,
+        uid: uid,
+        username: username,
+        profilePic: profilePic,
+        date: date,
+        title: title,
+        content: content,
+        Likes: []);
+    PostServices postServices = PostServices();
+    await postServices.addPost(post, context, postId);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     final TextEditingController titleController = TextEditingController();
     final TextEditingController contentController = TextEditingController();
 
@@ -59,7 +89,16 @@ class AddPostScreen extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              CustomButton(text: 'POST')
+              GestureDetector(
+                  onTap: () => addPost(
+                      context,
+                      user.username,
+                      user.profileImage,
+                      Timestamp.fromDate(DateTime.now().toUtc()),
+                      titleController.text,
+                      user.uid,
+                      contentController.text),
+                  child: CustomButton(text: 'POST'))
             ],
           )),
     );

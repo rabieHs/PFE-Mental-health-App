@@ -63,6 +63,7 @@ dependencies:
   ripple_wave: ^0.0.2
   readmore: ^2.2.0
   badges: ^3.0.2
+  uuid: ^3.0.7
 
   
 
