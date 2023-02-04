@@ -27,10 +27,10 @@ class EmotionRecognitionServices {
   Future<String> startVideoCapture(CameraController controller) async {
     String Emotion;
     await controller.startVideoRecording();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 5));
     final file = await controller.stopVideoRecording();
     final bytes = File(file.path).readAsBytesSync();
-    var url = 'http://192.168.80.198:5000/predict';
+    var url = 'http://192.168.80.198:5001/predict';
     final response = await http.post(Uri.parse(url), body: bytes);
     print(response.statusCode);
     print(response.body);
@@ -40,11 +40,5 @@ class EmotionRecognitionServices {
 
   predict(CameraController controller) async {
     String prediction;
-  }
-
-  navigatorController(String prediction) {
-    switch (prediction) {
-      case "Happy":
-    }
   }
 }

@@ -5,12 +5,18 @@ class User {
   final String username;
   final String email;
   final String uid;
+  final String profileImage;
 
-  User({required this.username, required this.email, required this.uid});
+  User(
+      {required this.profileImage,
+      required this.username,
+      required this.email,
+      required this.uid});
   Map<String, dynamic> ToJson() => {
         "username": username,
         "email": email,
         "uid": uid,
+        "profileImage": profileImage
       };
 
   Map<String, dynamic> toMap() {
@@ -18,11 +24,13 @@ class User {
       'username': username,
       'email': email,
       'uid': uid,
+      'profileImage': profileImage
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
+      profileImage: map['profileImage'] as String,
       username: map['username'] as String,
       email: map['email'] as String,
       uid: map['uid'] as String,

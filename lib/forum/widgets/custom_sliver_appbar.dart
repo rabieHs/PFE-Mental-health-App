@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_app/forum/screens/add_post_screen.dart';
 
 import '../../consts/colors.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
+  final String profilepic;
   const CustomSliverAppBar({
     Key? key,
+    required this.profilepic,
   }) : super(key: key);
 
   @override
@@ -36,26 +39,33 @@ class CustomSliverAppBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
+                    backgroundImage: NetworkImage(profilepic),
                     radius: 13,
                   ),
-                  Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: Colors.white,
-                      border: Border.all(
-                        width: 1,
-                        color: greyColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddPostScreen()));
+                    },
+                    child: Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: Colors.white,
+                        border: Border.all(
+                          width: 1,
+                          color: greyColor,
+                        ),
                       ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Click Here ...",
-                          style: TextStyle(color: greyColor, fontSize: 9),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Click Here ...",
+                            style: TextStyle(color: greyColor, fontSize: 9),
+                          ),
                         ),
                       ),
                     ),

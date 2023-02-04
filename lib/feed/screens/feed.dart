@@ -7,8 +7,11 @@ import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/meditation_card.dart';
 import 'package:mental_health_app/feed/widgets/sleep_card.dart';
+import 'package:mental_health_app/quotes/models/quotes_model.dart';
+import 'package:mental_health_app/quotes/services/quotes_services.dart';
 import 'package:mental_health_app/quotes/widgets/quotes_card.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../widgets/mood_lever.dart';
 import '../widgets/task_card.dart';
@@ -23,13 +26,22 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   late TasksServices _tasksServices;
   List<Tasks> tasks = [];
+  List<Quotes> quotes = [];
 
   @override
   void initState() {
+    final QuotesServices quotesServices = QuotesServices();
     // TODO: implement initState
     super.initState();
     _tasksServices = TasksServices();
     initTasks();
+    getQuotes();
+    setState(() {});
+  }
+
+  getQuotes() async {
+    final QuotesServices quotesServices = QuotesServices();
+    quotes = await quotesServices.getQuotes("Stress");
     setState(() {});
   }
 
@@ -106,7 +118,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 ListView(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: const [
+                  children: [
                     Padding(
                       padding: const EdgeInsets.only(
                         bottom: 10,
@@ -117,7 +129,20 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: QuotesCard()),
+                        child: quotes.isEmpty
+                            ? Shimmer.fromColors(
+                                baseColor: Colors.grey,
+                                highlightColor: Colors.white10,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15)),
+                                ),
+                              )
+                            : QuotesCard(
+                                quotes: quotes,
+                              )),
                     Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: MeditationCard()),

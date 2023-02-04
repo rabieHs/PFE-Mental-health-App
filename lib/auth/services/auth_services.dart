@@ -50,10 +50,11 @@ class AuthServices {
       String _username, String _email, String _password, String _uid) async {
     try {
       model.User user = model.User(
-        username: _username,
-        email: _email,
-        uid: _uid,
-      );
+          username: _username,
+          email: _email,
+          uid: _uid,
+          profileImage:
+              'https://api.dicebear.com/5.x/initials/png?seed=${_username}');
       await firestore.collection('Users').doc(_uid).set(user.ToJson());
       await firestore
           .collection("Users")

@@ -68,20 +68,29 @@ class PostCard extends StatelessWidget {
               SizedBox(
                 width: 15,
               ),
-              badges.Badge(
-                  badgeContent: Text(
-                    '15',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  badgeStyle: badges.BadgeStyle(
-                    shape: badges.BadgeShape.circle,
-                    badgeColor: primaryColor,
-                    padding: EdgeInsets.all(5),
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: BorderSide(color: Colors.white, width: 2),
-                    elevation: 0,
-                  ),
-                  child: Icon(Iconsax.message)),
+              GestureDetector(
+                onTap: () => showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    builder: (context) => modalSheetBuilder(context)),
+                child: badges.Badge(
+                    badgeContent: Text(
+                      '15',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    badgeStyle: badges.BadgeStyle(
+                      shape: badges.BadgeShape.circle,
+                      badgeColor: primaryColor,
+                      padding: EdgeInsets.all(5),
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: BorderSide(color: Colors.white, width: 2),
+                      elevation: 0,
+                    ),
+                    child: Icon(Iconsax.message)),
+              ),
             ],
           ),
           SizedBox(
@@ -91,6 +100,135 @@ class PostCard extends StatelessWidget {
             thickness: 2,
           )
         ]),
+      ),
+    );
+  }
+
+  modalSheetBuilder(BuildContext context) {
+    return Container(
+      height: 500,
+      child: Padding(
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Text(
+              "Comments",
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Rabie Houssaini",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey),
+                          ),
+                          Text(
+                            "nice wow hhhhh",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w600),
+                          ),
+                          Text(
+                            "5 min ago",
+                            style: TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Rabie Houssaini",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey),
+                            ),
+                            Text(
+                              "nice wow hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "5 min ago",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Rabie Houssaini",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey),
+                            ),
+                            Text(
+                              "nice wow hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "5 min ago",
+                              style: TextStyle(color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
