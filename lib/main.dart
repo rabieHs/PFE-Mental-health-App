@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
 
                   ///home Screen
                 } else {
-                  return EmotionRecognitionScreen();
+                  return HomeScreen(); //EmotionRecognitionScreen();
                 }
               } else if (snapshot.hasError) {
                 return (Center(

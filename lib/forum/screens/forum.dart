@@ -27,23 +27,27 @@ class _ForumScreenState extends State<ForumScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          CustomSliverAppBar(
-            profilepic: user.profileImage,
-          )
-        ],
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            posts != null ? Text(posts.first.content) : Text("null"),
-            PostCard(),
-            PostCard(),
-            PostCard(),
-            PostCard(),
-          ],
-        ),
-      ),
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                CustomSliverAppBar(
+                  profilepic: user.profileImage,
+                )
+              ],
+          body: posts == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : posts.length == 0
+                  ? Center(
+                      child: Text("No Posts"),
+                    )
+                  : ListView.builder(
+                      itemCount: posts.length,
+                      itemBuilder: (context, index) {
+                        return PostCard(
+                          post: posts[index],
+                        );
+                      })),
     );
   }
 }
