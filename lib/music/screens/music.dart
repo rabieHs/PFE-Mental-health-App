@@ -163,9 +163,6 @@ class _MusicScreenState extends State<MusicScreen> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => PlayScreen(
-                                          image: data[index].image,
-                                          title: data[index].title,
-                                          url: data[index].url,
                                           musicList: snapshot.data!,
                                           index: index,
                                         )));

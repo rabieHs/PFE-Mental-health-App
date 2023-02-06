@@ -576,6 +576,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  siri_wave:
+    dependency: "direct main"
+    description:
+      name: siri_wave
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   sky_engine:
     dependency: transitive
     description: flutter

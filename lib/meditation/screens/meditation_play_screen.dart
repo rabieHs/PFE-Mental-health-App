@@ -1,29 +1,37 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:iconsax/iconsax.dart';
 
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/consts/colors.dart';
+import 'package:mental_health_app/meditation/services/meditation_services.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:ripple_wave/ripple_wave.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
+import 'package:siri_wave/siri_wave.dart';
 
-import '../widgets/seek_bar.dart';
+import '../../music/widgets/seek_bar.dart';
+import '../models/meditation_model.dart';
 
-class PlayScreen extends StatefulWidget {
-  final List<Music> musicList;
+class MeditationPlayScreen extends StatefulWidget {
+  final List<Meditation> meditationList;
   final int index;
-
-  const PlayScreen({super.key, required this.musicList, required this.index});
+  final Meditation meditation;
+  const MeditationPlayScreen(
+      {super.key,
+      required this.meditationList,
+      required this.index,
+      required this.meditation});
 
   @override
-  State<PlayScreen> createState() => _PlayScreenState();
+  State<MeditationPlayScreen> createState() => _MeditationPlayScreenState();
 }
 
-class _PlayScreenState extends State<PlayScreen> {
+class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
+  final MeditationServices meditationServices = MeditationServices();
+  SiriWaveController waveController = SiriWaveController();
   AudioPlayer audioPlayer = AudioPlayer();
   List<AudioSource> source = [];
   int _index = 0;
@@ -32,12 +40,13 @@ class _PlayScreenState extends State<PlayScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    for (var song in widget.musicList) {
+    for (var song in widget.meditationList) {
       source.add(
         AudioSource.uri(
           Uri.parse(song.url),
         ),
       );
+      audioPlayer.play();
     }
     audioPlayer.setAudioSource(ConcatenatingAudioSource(children: source),
         initialIndex: widget.index);
@@ -86,35 +95,44 @@ class _PlayScreenState extends State<PlayScreen> {
           SizedBox(
             height: 50,
           ),
-          audioPlayer.playing
-              ? Container(
-                  width: 300,
-                  height: 300,
-                  child: RippleWave(
-                    color: primaryColor,
-                    child: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(widget.musicList[_index].image),
-                      radius: 100,
-                    ),
-                  ),
-                )
-              : CircleAvatar(
-                  backgroundImage: NetworkImage(widget.musicList[_index].image),
+          StreamBuilder<PlayerState>(
+              stream: audioPlayer.playerStateStream,
+              builder: (context, snapshot) {
+                if (snapshot.data!.playing == true) {
+                  waveController.setAmplitude(1);
+                  waveController.setSpeed(0.05);
+
+                  waveController.setColor(Colors.red);
+                  waveController.setFrequency(4);
+                } else {
+                  waveController.setAmplitude(0);
+                  waveController.setSpeed(0.0);
+
+                  waveController.setColor(Colors.red);
+                  waveController.setFrequency(0);
+                }
+                return CircleAvatar(
+                  backgroundColor: greyColor,
                   radius: 100,
-                ),
+                  child: SiriWave(
+                    options:
+                        SiriWaveOptions(backgroundColor: Colors.transparent),
+                    controller: waveController,
+                  ),
+                );
+              }),
           SizedBox(
             height: 50,
           ),
           Text(
-            widget.musicList[_index].title,
+            widget.meditationList[_index].title,
             style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700),
           ),
           Text(
-            "By Painting with Passion",
+            "By ${widget.meditationList[_index].owner}",
             style: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Poppins',
@@ -156,10 +174,17 @@ class _PlayScreenState extends State<PlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasPrevious) {
-                    audioPlayer.seekToPrevious().then((value) {
+                    audioPlayer.seekToPrevious().then((value) async {
+                      await meditationServices.updatemeditationListen(
+                          widget
+                              .meditationList[audioPlayer.previousIndex!].docId,
+                          widget.meditationList[audioPlayer.previousIndex!]
+                              .listen,
+                          'Sleep');
                       setState(() {});
                     });
                     _index = audioPlayer.previousIndex!;
+
                     setState(() {});
                   }
                 },
@@ -215,10 +240,14 @@ class _PlayScreenState extends State<PlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasNext) {
-                    audioPlayer.seekToNext().then((value) {
+                    audioPlayer.seekToNext().then((value) async {
                       setState(() {});
                     });
                     _index = audioPlayer.nextIndex!;
+                    meditationServices.updatemeditationListen(
+                        widget.meditationList[audioPlayer.nextIndex!].docId,
+                        widget.meditationList[audioPlayer.nextIndex!].listen,
+                        'Sleep');
                     setState(() {});
                   }
                 },

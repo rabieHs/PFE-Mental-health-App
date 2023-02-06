@@ -65,6 +65,7 @@ dependencies:
   badges: ^3.0.2
   uuid: ^3.0.7
   timeago: ^3.3.0
+  siri_wave: ^0.2.2
  
 
   

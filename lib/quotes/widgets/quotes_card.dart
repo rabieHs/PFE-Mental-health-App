@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/feed/widgets/shimmer_widget.dart';
 import 'package:mental_health_app/quotes/models/quotes_model.dart';
 import 'package:mental_health_app/quotes/screens/quotes_screen.dart';
+import 'package:mental_health_app/quotes/widgets/shimmer_quote.dart';
 
 class QuotesCard extends StatefulWidget {
   final List<Quotes> quotes;
@@ -45,6 +47,10 @@ class _QuotesCardState extends State<QuotesCard> {
           height: 75,
           child: Stack(
             children: [
+              ShimmerQuote(
+                height: 75,
+                widht: MediaQuery.of(context).size.width,
+              ),
               Image.network(
                 widget.quotes[_currentInddex].image,
                 width: MediaQuery.of(context).size.width,
