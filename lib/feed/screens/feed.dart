@@ -12,6 +12,7 @@ import 'package:mental_health_app/feed/widgets/sleep_card.dart';
 import 'package:mental_health_app/quotes/models/quotes_model.dart';
 import 'package:mental_health_app/quotes/services/quotes_services.dart';
 import 'package:mental_health_app/quotes/widgets/quotes_card.dart';
+import 'package:mental_health_app/sleepBetter/screens/better_sleep_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -97,7 +98,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
                 Container(
                   alignment: Alignment.topLeft,
-                  height: 150,
+                  height: 160,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -199,7 +200,12 @@ class _FeedScreenState extends State<FeedScreen> {
                           0),
                       child: Padding(
                           padding: const EdgeInsets.only(bottom: 10),
-                          child: SleepCard()),
+                          child: GestureDetector(
+                              onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BetterSleepScreen())),
+                              child: SleepCard())),
                     ),
                   ],
                 ),

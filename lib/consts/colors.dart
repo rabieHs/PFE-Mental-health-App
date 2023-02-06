@@ -25,6 +25,10 @@ const lightgreenColor = Color.fromRGBO(104, 204, 196, 1);
 const greyColor = Color.fromRGBO(191, 193, 207, 1);
 const nightBlue1 = Color.fromRGBO(45, 89, 207, 1);
 const nightBlue2 = Color.fromRGBO(15, 22, 97, 1);
+const pinkColor = Color.fromRGBO(250, 133, 155, 1);
+const orangeColor = Color.fromRGBO(247, 202, 74, 1);
+const vaioletColor = Color.fromRGBO(121, 106, 251, 1);
+const nightGreyColor = Color.fromRGBO(108, 113, 161, 1);
 const nightBlueGradienColor = LinearGradient(
   colors: [
     Color.fromRGBO(45, 89, 207, 1),
