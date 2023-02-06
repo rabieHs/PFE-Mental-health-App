@@ -1,10 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/consts/colors.dart';
 
-class MoodLevel extends StatelessWidget {
+import '../services/feed_services.dart';
+
+class MoodLevel extends StatefulWidget {
   const MoodLevel({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<MoodLevel> createState() => _MoodLevelState();
+}
+
+class _MoodLevelState extends State<MoodLevel> {
+  String Mood = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMood();
+  }
+
+  getMood() async {
+    Mood = await feedServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +63,14 @@ class MoodLevel extends StatelessWidget {
           Column(
             children: [
               Container(
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(2),
                 width: 60,
                 height: 60,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Mood == "Stress"
+                        ? Border.all(width: 3, color: primaryColor)
+                        : null),
                 child: Image.asset(
                   "assets/images/sad.png",
                   width: 60,

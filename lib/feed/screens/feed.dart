@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/auth/provider/user_provider.dart';
 import 'package:mental_health_app/feed/models/tasks.dart';
+import 'package:mental_health_app/feed/services/feed_services.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/meditation_card.dart';
 import 'package:mental_health_app/feed/widgets/sleep_card.dart';
@@ -27,6 +29,7 @@ class _FeedScreenState extends State<FeedScreen> {
   late TasksServices _tasksServices;
   List<Tasks> tasks = [];
   List<Quotes> quotes = [];
+  bool startAnimating = false;
 
   @override
   void initState() {
@@ -34,19 +37,27 @@ class _FeedScreenState extends State<FeedScreen> {
     // TODO: implement initState
     super.initState();
     _tasksServices = TasksServices();
+
     initTasks();
     getQuotes();
     setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+        startAnimating = true;
+      });
+    });
   }
 
   getQuotes() async {
     final QuotesServices quotesServices = QuotesServices();
-    quotes = await quotesServices.getQuotes("Stress");
+    quotes = await quotesServices.getQuotes(await feedServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid));
     setState(() {});
   }
 
   initTasks() async {
-    tasks = await _tasksServices.getTasks1("Stress");
+    tasks = await _tasksServices.getTasks1(await feedServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid));
 
     print(tasks.last.title);
   }
@@ -119,36 +130,77 @@ class _FeedScreenState extends State<FeedScreen> {
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 10,
-                      ),
-                      child: TaskCard(
-                        mood: "Stress",
+                    AnimatedContainer(
+                      curve: Curves.easeInOut,
+                      duration: Duration(milliseconds: 300 + (0 * 100)),
+                      transform: Matrix4.translationValues(
+                          startAnimating
+                              ? 0
+                              : MediaQuery.of(context).size.width,
+                          0,
+                          0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 10,
+                        ),
+                        child: TaskCard(
+                          mood: "Stress",
+                        ),
                       ),
                     ),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: quotes.isEmpty
-                            ? Shimmer.fromColors(
-                                baseColor: Colors.grey,
-                                highlightColor: Colors.white10,
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 75,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15)),
-                                ),
-                              )
-                            : QuotesCard(
-                                quotes: quotes,
-                              )),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: MeditationCard()),
-                    Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: SleepCard()),
+                    AnimatedContainer(
+                      curve: Curves.easeInOut,
+                      duration: Duration(milliseconds: 300 + (1 * 100)),
+                      transform: Matrix4.translationValues(
+                          startAnimating
+                              ? 0
+                              : MediaQuery.of(context).size.width,
+                          0,
+                          0),
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: quotes.isEmpty
+                              ? Shimmer.fromColors(
+                                  baseColor: Colors.grey,
+                                  highlightColor: Colors.white10,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 75,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                  ),
+                                )
+                              : QuotesCard(
+                                  quotes: quotes,
+                                )),
+                    ),
+                    AnimatedContainer(
+                      curve: Curves.easeInOut,
+                      duration: Duration(milliseconds: 300 + (2 * 100)),
+                      transform: Matrix4.translationValues(
+                          startAnimating
+                              ? 0
+                              : MediaQuery.of(context).size.width,
+                          0,
+                          0),
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: MeditationCard()),
+                    ),
+                    AnimatedContainer(
+                      curve: Curves.easeInOut,
+                      duration: Duration(milliseconds: 300 + (3 * 100)),
+                      transform: Matrix4.translationValues(
+                          startAnimating
+                              ? 0
+                              : MediaQuery.of(context).size.width,
+                          0,
+                          0),
+                      child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: SleepCard()),
+                    ),
                   ],
                 ),
               ],
