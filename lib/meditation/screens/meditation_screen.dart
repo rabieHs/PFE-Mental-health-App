@@ -10,7 +10,8 @@ import '../widgets/meditation_play_card.dart';
 import '../widgets/top_listened_card.dart';
 
 class MeditationScreen extends StatefulWidget {
-  const MeditationScreen({super.key});
+  final String meditationType;
+  const MeditationScreen({super.key, required this.meditationType});
 
   @override
   State<MeditationScreen> createState() => _MeditationScreenState();
@@ -39,8 +40,13 @@ class _MeditationScreenState extends State<MeditationScreen> {
   }
 
   getMeditation() async {
-    meditationList = await meditationServices.getMeditation("Sleep");
-    setState(() {});
+    if (widget.meditationType == 'Sleep') {
+      meditationList = await meditationServices.getMeditationForSleep();
+      setState(() {});
+    } else {
+      meditationList = await meditationServices.getMeditation();
+      setState(() {});
+    }
   }
 
   @override
@@ -75,12 +81,14 @@ class _MeditationScreenState extends State<MeditationScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TopListenedCard(
+                          MeditationType: widget.meditationType,
                           index: 0,
                           meditation: meditationList[0],
                           meditationList: meditationList,
                           color: vaioletColor,
                         ),
                         TopListenedCard(
+                          MeditationType: widget.meditationType,
                           index: 1,
                           meditation: meditationList[1],
                           meditationList: meditationList,
@@ -104,6 +112,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                       itemBuilder: (context, index) {
                         int _index = index + 2;
                         return MeditationPlayCard(
+                            MeditationType: widget.meditationType,
                             color: colorList[index],
                             meditation: meditationList[_index],
                             meditationList: meditationList,

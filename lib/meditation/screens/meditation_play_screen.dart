@@ -16,6 +16,7 @@ import '../../music/widgets/seek_bar.dart';
 import '../models/meditation_model.dart';
 
 class MeditationPlayScreen extends StatefulWidget {
+  final String MeditationPlayType;
   final List<Meditation> meditationList;
   final int index;
   final Meditation meditation;
@@ -23,7 +24,8 @@ class MeditationPlayScreen extends StatefulWidget {
       {super.key,
       required this.meditationList,
       required this.index,
-      required this.meditation});
+      required this.meditation,
+      required this.MeditationPlayType});
 
   @override
   State<MeditationPlayScreen> createState() => _MeditationPlayScreenState();
@@ -99,11 +101,11 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
               stream: audioPlayer.playerStateStream,
               builder: (context, snapshot) {
                 if (snapshot.data!.playing == true) {
-                  waveController.setAmplitude(1);
+                  waveController.setAmplitude(3);
                   waveController.setSpeed(0.05);
 
                   waveController.setColor(Colors.red);
-                  waveController.setFrequency(4);
+                  waveController.setFrequency(5);
                 } else {
                   waveController.setAmplitude(0);
                   waveController.setSpeed(0.0);
@@ -112,7 +114,7 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
                   waveController.setFrequency(0);
                 }
                 return CircleAvatar(
-                  backgroundColor: greyColor,
+                  backgroundColor: primaryColor.withOpacity(0.5),
                   radius: 100,
                   child: SiriWave(
                     options:
@@ -126,6 +128,7 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
           ),
           Text(
             widget.meditationList[_index].title,
+            textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'Poppins',
@@ -174,16 +177,22 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasPrevious) {
-                    audioPlayer.seekToPrevious().then((value) async {
-                      await meditationServices.updatemeditationListen(
-                          widget
-                              .meditationList[audioPlayer.previousIndex!].docId,
-                          widget.meditationList[audioPlayer.previousIndex!]
-                              .listen,
-                          'Sleep');
-                      setState(() {});
-                    });
                     _index = audioPlayer.previousIndex!;
+                    audioPlayer.seekToPrevious().then((value) async {
+                      if (widget.MeditationPlayType == 'Sleep') {
+                        await meditationServices.updatemeditationListenForSleep(
+                          widget.meditationList[_index].docId,
+                          widget.meditationList[_index].listen,
+                        );
+                        setState(() {});
+                      } else {
+                        await meditationServices.updatemeditationListen(
+                          widget.meditationList[_index].docId,
+                          widget.meditationList[_index].listen,
+                        );
+                        setState(() {});
+                      }
+                    });
 
                     setState(() {});
                   }
@@ -240,14 +249,24 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasNext) {
+                    _index = audioPlayer.nextIndex!;
                     audioPlayer.seekToNext().then((value) async {
+                      if (widget.MeditationPlayType == 'Sleep') {
+                        await meditationServices.updatemeditationListenForSleep(
+                          widget.meditationList[_index].docId,
+                          widget.meditationList[_index].listen,
+                        );
+                        setState(() {});
+                      } else {
+                        await meditationServices.updatemeditationListen(
+                          widget.meditationList[_index].docId,
+                          widget.meditationList[_index].listen,
+                        );
+                        setState(() {});
+                      }
                       setState(() {});
                     });
-                    _index = audioPlayer.nextIndex!;
-                    meditationServices.updatemeditationListen(
-                        widget.meditationList[audioPlayer.nextIndex!].docId,
-                        widget.meditationList[audioPlayer.nextIndex!].listen,
-                        'Sleep');
+
                     setState(() {});
                   }
                 },

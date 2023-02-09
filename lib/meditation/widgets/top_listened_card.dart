@@ -8,6 +8,7 @@ class TopListenedCard extends StatelessWidget {
   final Color color;
   final Meditation meditation;
   final int index;
+  final String MeditationType;
   final List<Meditation> meditationList;
   const TopListenedCard({
     Key? key,
@@ -15,6 +16,7 @@ class TopListenedCard extends StatelessWidget {
     required this.meditation,
     required this.meditationList,
     required this.index,
+    required this.MeditationType,
   }) : super(key: key);
 
   @override
@@ -58,10 +60,20 @@ class TopListenedCard extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () async {
-                await meditationServices.updatemeditationListen(
-                    meditation.docId, meditation.listen, 'Sleep');
+                if (MeditationType == 'Sleep') {
+                  await meditationServices.updatemeditationListenForSleep(
+                    meditation.docId,
+                    meditation.listen,
+                  );
+                } else {
+                  await meditationServices.updatemeditationListen(
+                    meditation.docId,
+                    meditation.listen,
+                  );
+                }
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => MeditationPlayScreen(
+                        MeditationPlayType: MeditationType,
                         meditationList: [meditationList[0], meditationList[1]],
                         index: index,
                         meditation: meditation)));
