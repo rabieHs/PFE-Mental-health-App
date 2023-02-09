@@ -4,17 +4,22 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../auth/services/auth_services.dart';
+
 class TasksServices {
   List<Tasks>? tasks;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  getTasks1(String mood) async {
+  getTasks1() async {
+    final mood = await AuthServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid);
     List<Tasks> _tasks;
 
     QuerySnapshot taskSnapshot = await _firestore
@@ -42,7 +47,7 @@ class TasksServices {
       print('tasks null');
     }
 
-    List<Tasks> _tasks = await getTasks1(mood);
+    List<Tasks> _tasks = await getTasks1();
     //
     List<Tasks> tasks = _oldTasks != null
         ? (jsonDecode(_oldTasks) as List<dynamic>)

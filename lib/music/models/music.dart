@@ -5,19 +5,34 @@ class Music {
   final String title;
   final String image;
   final String url;
+  final int listen;
+  final String Duration;
+  final String docId;
 
-  Music({required this.title, required this.image, required this.url});
+  Music(
+      {required this.listen,
+      required this.docId,
+      required this.Duration,
+      required this.title,
+      required this.image,
+      required this.url});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'title': title,
       'image': image,
       'url': url,
+      'duration': Duration,
+      'listen': listen,
+      'docId': docId
     };
   }
 
   factory Music.fromMap(Map<String, dynamic> map) {
     return Music(
+      docId: map['docId'] as String,
+      listen: map['listen'] as int,
+      Duration: map['duration'] as String,
       title: map['title'] as String,
       image: map['image'] as String,
       url: map['url'] as String,

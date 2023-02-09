@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../models/music.dart';
+
 class MusicCard extends StatelessWidget {
-  final String backgroundImage;
-  final String title;
-  const MusicCard(
-      {super.key, required this.backgroundImage, required this.title});
+  final Music music;
+  const MusicCard({super.key, required this.music});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,7 @@ class MusicCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(14),
                     image: DecorationImage(
-                        image: NetworkImage(backgroundImage.toString()),
-                        fit: BoxFit.cover)),
+                        image: NetworkImage(music.image), fit: BoxFit.cover)),
               ),
               Icon(
                 Icons.play_circle,
@@ -44,14 +43,14 @@ class MusicCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  music.title,
                   style: TextStyle(
                       fontSize: 15,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  "5899 listening",
+                  "${music.listen} listening",
                   style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'Poppins',
@@ -61,7 +60,7 @@ class MusicCard extends StatelessWidget {
             ),
           ),
           Text(
-            "20 Min",
+            music.Duration,
             style: TextStyle(
                 fontSize: 12,
                 fontFamily: 'Poppins',

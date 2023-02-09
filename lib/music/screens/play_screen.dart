@@ -8,6 +8,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/music/models/music.dart';
+import 'package:mental_health_app/music/services/music_services.dart';
+import 'package:mental_health_app/sleepBetter/services/sleep_services.dart';
 import 'package:ripple_wave/ripple_wave.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 
@@ -16,8 +18,15 @@ import '../widgets/seek_bar.dart';
 class PlayScreen extends StatefulWidget {
   final List<Music> musicList;
   final int index;
+  final String type;
+  final String Sleeptype;
 
-  const PlayScreen({super.key, required this.musicList, required this.index});
+  const PlayScreen(
+      {super.key,
+      required this.musicList,
+      required this.index,
+      required this.type,
+      this.Sleeptype = "CalmingSounds"});
 
   @override
   State<PlayScreen> createState() => _PlayScreenState();
@@ -156,11 +165,31 @@ class _PlayScreenState extends State<PlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasPrevious) {
-                    audioPlayer.seekToPrevious().then((value) {
-                      setState(() {});
-                    });
-                    _index = audioPlayer.previousIndex!;
+                    _index = audioPlayer.nextIndex!;
                     setState(() {});
+                    audioPlayer.seekToPrevious().then((value) async {
+                      if (widget.type != "Music") {
+                        if (widget.Sleeptype == 'CalmingSounds') {
+                          await SleepServices().updatemeditationListen(
+                              widget.musicList[_index].docId,
+                              widget.musicList[_index].listen,
+                              "CalmingSounds");
+                        }
+                        if (widget.Sleeptype == 'Quran') {
+                          await SleepServices().updatemeditationListen(
+                              widget.musicList[_index].docId,
+                              widget.musicList[_index].listen,
+                              "Quran");
+                        }
+                        setState(() {});
+                      } else {
+                        await MusicServices().updatemeditationListen(
+                            widget.musicList[_index].docId,
+                            widget.musicList[_index].listen,
+                            widget.type);
+                        setState(() {});
+                      }
+                    });
                   }
                 },
                 child: Icon(
@@ -215,11 +244,29 @@ class _PlayScreenState extends State<PlayScreen> {
               GestureDetector(
                 onTap: () {
                   if (audioPlayer.hasNext) {
-                    audioPlayer.seekToNext().then((value) {
-                      setState(() {});
-                    });
                     _index = audioPlayer.nextIndex!;
                     setState(() {});
+                    audioPlayer.seekToNext().then((value) async {
+                      if (widget.type != "Music") {
+                        if (widget.Sleeptype == 'CalmingSounds') {
+                          await SleepServices().updatemeditationListen(
+                              widget.musicList[_index].docId,
+                              widget.musicList[_index].listen,
+                              "CalmingSounds");
+                        }
+                        if (widget.Sleeptype == 'Quran') {
+                          await SleepServices().updatemeditationListen(
+                              widget.musicList[_index].docId,
+                              widget.musicList[_index].listen,
+                              "Quran");
+                        }
+                      }
+                      await MusicServices().updatemeditationListen(
+                          widget.musicList[_index].docId,
+                          widget.musicList[_index].listen,
+                          widget.type);
+                      setState(() {});
+                    });
                   }
                 },
                 child: Icon(

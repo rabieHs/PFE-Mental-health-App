@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/auth/provider/user_provider.dart';
+import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:mental_health_app/feed/services/feed_services.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
@@ -51,14 +52,13 @@ class _FeedScreenState extends State<FeedScreen> {
 
   getQuotes() async {
     final QuotesServices quotesServices = QuotesServices();
-    quotes = await quotesServices.getQuotes(await feedServices()
-        .getUserMood(FirebaseAuth.instance.currentUser!.uid));
+    quotes = await quotesServices.getQuotes();
+    print("quotes length: ${quotes.length}");
     setState(() {});
   }
 
   initTasks() async {
-    tasks = await _tasksServices.getTasks1(await feedServices()
-        .getUserMood(FirebaseAuth.instance.currentUser!.uid));
+    tasks = await _tasksServices.getTasks1();
 
     print(tasks.last.title);
   }

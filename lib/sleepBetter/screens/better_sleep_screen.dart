@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/meditation/screens/meditation_screen.dart';
+import 'package:mental_health_app/music/models/music.dart';
+import 'package:mental_health_app/sleepBetter/screens/sounds_screen.dart';
+import 'package:mental_health_app/sleepBetter/services/sleep_services.dart';
 import 'package:mental_health_app/sleepBetter/widgets/sleep_meditation_card.dart';
 
 import '../widgets/sleep_greed_card.dart';
@@ -66,7 +69,19 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10),
                 children: [
-                  SleepGridCard(color: greenColor, title: 'Calming Sounds'),
+                  GestureDetector(
+                      onTap: () async {
+                        List<Music> sounds = await SleepServices()
+                            .getCalmingSounds('CalmingSounds');
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SoundScreen(
+                                  title: "Close Your Eyes And Dream.",
+                                  sleepType: "CalmingSounds",
+                                  sounds: sounds,
+                                )));
+                      },
+                      child: SleepGridCard(
+                          color: greenColor, title: 'Calming Sounds')),
                   SleepGridCard(
                     color: pinkColor,
                     title: 'Natural Sounds',

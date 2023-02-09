@@ -1,14 +1,20 @@
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/quotes/models/quotes_model.dart';
 
+import '../../auth/services/auth_services.dart';
+
 class QuotesServices {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<List<Quotes>> getQuotes(String mood) async {
+  Future<List<Quotes>> getQuotes() async {
+    final mood = await AuthServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid);
+    print("quotes $mood");
     List<Quotes> quotes = [];
     QuerySnapshot snapshot = await firestore
         .collection(mood)

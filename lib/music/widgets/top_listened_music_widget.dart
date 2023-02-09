@@ -1,11 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/consts/colors.dart';
+import 'package:mental_health_app/music/models/music.dart';
+
+import '../screens/play_screen.dart';
+import '../services/music_services.dart';
 
 class BestListenedMusic extends StatelessWidget {
-  const BestListenedMusic({super.key});
+  final Music music;
+  final String type;
+  final List<Music> musicList;
+  final int Index;
+  const BestListenedMusic(
+      {super.key,
+      required this.music,
+      required this.musicList,
+      required this.Index,
+      required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +59,42 @@ class BestListenedMusic extends StatelessWidget {
                         fontWeight: FontWeight.w200),
                   ),
                 ),
-                Container(
-                  width: 135,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(7)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'PLAY NOW',
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
-                            fontFamily: 'Poppoins',
-                            fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Icon(Icons.play_circle)
-                    ],
+                GestureDetector(
+                  onTap: () async {
+                    print(musicList[0].title);
+                    final MusicServices musicServices = MusicServices();
+                    await musicServices.updatemeditationListen(
+                        music.docId, music.listen, type);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PlayScreen(
+                              musicList: musicList,
+                              index: 0,
+                              type: type,
+                            )));
+                  },
+                  child: Container(
+                    width: 135,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(7)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'PLAY NOW',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontFamily: 'Poppoins',
+                              fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(Icons.play_circle)
+                      ],
+                    ),
                   ),
                 )
               ],
