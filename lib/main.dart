@@ -10,6 +10,7 @@ import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/core/theme/theme.dart';
 import 'package:mental_health_app/forum/services/post_services.dart';
+import 'package:mental_health_app/onboadring/screens/onboarding_screen.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
 import 'package:provider/provider.dart';
@@ -77,7 +78,7 @@ class _MyAppState extends State<MyApp> {
                 print("yes data");
 
                 if (checked == true) {
-                  return HomeScreen(); //home
+                  return OnBoardingScreen(); //home
 
                   ///home Screen
                 } else {
