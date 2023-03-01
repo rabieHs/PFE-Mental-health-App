@@ -52,6 +52,9 @@ ThemeData lightTheme = ThemeData(
       backgroundColor: Colors.white, modalBackgroundColor: Colors.white),
   primaryColor: primaryColor,
   appBarTheme: const AppBarTheme(
+    //foregroundColor: Colors.white,
+    surfaceTintColor: Colors.white,
+    //shadowColor: Colors.white,
     titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
     backgroundColor: Colors.white,
     elevation: 0,
