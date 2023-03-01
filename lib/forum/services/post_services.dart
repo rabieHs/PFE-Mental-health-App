@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/forum/models/post_model.dart';
 import 'package:mental_health_app/services/notification_services.dart';
 
+import '../../core/theme/colors.dart';
 import '../models/comment_model.dart';
 
 class PostServices {

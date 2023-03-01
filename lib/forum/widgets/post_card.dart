@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/auth/provider/user_provider.dart';
 import 'package:mental_health_app/consts/widgets/custom_input_text.dart';
+import 'package:mental_health_app/core/theme/theme.dart';
 import 'package:mental_health_app/forum/models/comment_model.dart';
 import 'package:mental_health_app/forum/models/post_model.dart';
 import 'package:mental_health_app/forum/services/post_services.dart';
@@ -10,8 +12,9 @@ import 'package:mental_health_app/forum/widgets/comment_card.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import '../../consts/colors.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../../core/theme/colors.dart';
 
 class PostCard extends StatefulWidget {
   final Post post;
@@ -61,6 +64,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = isdarkTheme(context);
     final postProvider = Provider.of<PostsProvider>(context);
     bool isLike = postProvider.checkLike(widget.post.uid, widget.post.Likes);
 
@@ -112,7 +116,8 @@ class _PostCardState extends State<PostCard> {
             trimExpandedText: "Read Less",
             lessStyle: TextStyle(color: primaryColor),
             moreStyle: TextStyle(color: primaryColor),
-            style: TextStyle(color: Colors.grey.shade700),
+
+            // TextStyle(color: Colors.grey.shade700),
           ),
           SizedBox(
             height: 15,
@@ -141,7 +146,6 @@ class _PostCardState extends State<PostCard> {
                         ? Icon(
                             Icons.favorite_outline,
                             size: 26,
-                            color: Colors.black,
                           )
                         : Icon(
                             Icons.favorite,
@@ -185,7 +189,9 @@ class _PostCardState extends State<PostCard> {
                       borderSide: BorderSide(color: Colors.white, width: 2),
                       elevation: 0,
                     ),
-                    child: Icon(Iconsax.message)),
+                    child: Icon(
+                      CupertinoIcons.conversation_bubble,
+                    )),
               ),
             ],
           ),
@@ -203,87 +209,93 @@ class _PostCardState extends State<PostCard> {
   modalSheetBuilder(BuildContext context, String postId) {
     PostServices postServices = PostServices();
     final user = Provider.of<UserProvider>(context).user;
-    return Container(
-        height: 500,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "Comments",
-                style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Container(
-                  height: MediaQuery.of(context).size.height * 0.47,
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: postServices.getComment(postId),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: Text("No Comments yet"),
-                        );
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      return ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            Comment comment = Comment.fromMap(
-                                snapshot.data!.docs[index].data()
-                                    as Map<String, dynamic>);
-                            return CommentCard(
-                              comment: comment,
-                            );
-                          });
-                    },
-                  )),
-              Container(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage: NetworkImage(user.profileImage),
-                    ),
-                    Container(
-                        width: MediaQuery.of(context).size.width * 0.67,
-                        height: 35,
-                        child: CustomInputText(
-                          hint: "enter comment ..",
-                          minLines: 1,
-                          textEditingController: commentController,
-                        )),
-                    InkWell(
-                      onTap: () {
-                        uploadComment(
-                            commentController.text,
-                            postId,
-                            user.username,
-                            user.profileImage,
-                            user.uid,
-                            DateTime.now());
-                        commentController.text = '';
-                      },
-                      child: Icon(
-                        Iconsax.send1,
-                        color: primaryColor,
-                        size: 35,
-                      ),
-                    )
-                  ],
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: Container(
+          height: 500,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Comments",
+                  style: TextStyle(fontWeight: FontWeight.w700),
                 ),
-              ),
-            ],
-          ),
-        ));
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    height: MediaQuery.of(context).size.height * 0.47,
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: postServices.getComment(postId),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: Text("No Comments yet"),
+                          );
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              Comment comment = Comment.fromMap(
+                                  snapshot.data!.docs[index].data()
+                                      as Map<String, dynamic>);
+                              return CommentCard(
+                                comment: comment,
+                              );
+                            });
+                      },
+                    )),
+                Container(
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CircleAvatar(
+                        radius: 15,
+                        backgroundImage: NetworkImage(user.profileImage),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.67,
+                          height: 35,
+                          child: CustomInputText(
+                            hint: "enter comment ..",
+                            minLines: 1,
+                            textEditingController: commentController,
+                          )),
+                      InkWell(
+                        onTap: () {
+                          uploadComment(
+                              commentController.text,
+                              postId,
+                              user.username,
+                              user.profileImage,
+                              user.uid,
+                              DateTime.now());
+                          commentController.text = '';
+                        },
+                        child: Icon(
+                          Iconsax.send1,
+                          color: primaryColor,
+                          size: 35,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
+    );
   }
 }

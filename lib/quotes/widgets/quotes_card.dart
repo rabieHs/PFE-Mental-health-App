@@ -21,15 +21,23 @@ class QuotesCard extends StatefulWidget {
 
 class _QuotesCardState extends State<QuotesCard> {
   int _currentInddex = 0;
+  late Timer timer;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer.periodic(Duration(seconds: 5), (timer) {
+    timer = Timer.periodic(Duration(seconds: 5), (timer) {
       setState(() {
         _currentInddex = (_currentInddex + 1) % widget.quotes.length;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    timer.cancel();
   }
 
   @override

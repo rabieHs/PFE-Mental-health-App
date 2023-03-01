@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/meditation/screens/meditation_screen.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:mental_health_app/sleepBetter/screens/sounds_screen.dart';
+import 'package:mental_health_app/sleepBetter/screens/tips_for_sleeping.dart';
 import 'package:mental_health_app/sleepBetter/services/sleep_services.dart';
 import 'package:mental_health_app/sleepBetter/widgets/sleep_meditation_card.dart';
 
+import '../../core/theme/colors.dart';
 import '../widgets/sleep_greed_card.dart';
 
 class BetterSleepScreen extends StatefulWidget {
@@ -21,10 +22,13 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Icon(Icons.arrow_back)),
           title: Text("Better Sleep"),
-          backgroundColor: Colors.white,
           elevation: 0,
         ),
         body: NestedScrollView(
@@ -34,7 +38,6 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                 centerTitle: true,
                 expandedHeight: 70,
                 automaticallyImplyLeading: false,
-                backgroundColor: Colors.white,
                 floating: true,
                 snap: true,
                 elevation: 0,
@@ -43,7 +46,10 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                   centerTitle: true,
                   title: Text(
                     "For Better Sleep.",
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey),
                   ),
                 ))
           ],
@@ -109,9 +115,15 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                         color: orangeColor,
                         title: 'Quran',
                       ),
-                      SleepGridCard(
-                        color: vaioletColor,
-                        title: 'Tips For Sleeping',
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TipsForSleepingScreen()));
+                        },
+                        child: SleepGridCard(
+                          color: vaioletColor,
+                          title: 'Tips For Sleeping',
+                        ),
                       ),
                     ],
                   )

@@ -32,6 +32,7 @@ class _FeedScreenState extends State<FeedScreen> {
   List<Tasks> tasks = [];
   List<Quotes> quotes = [];
   bool startAnimating = false;
+  String mood = "";
 
   @override
   void initState() {
@@ -67,151 +68,139 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     var user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-        backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Welcome Back, ",
-                      style: TextStyle(fontSize: 27),
-                    ),
-                    Text(
-                      user.username,
-                      style:
-                          TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  height: 160,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "How are you feeling today ?",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      MoodLevel()
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
+                const Text(
+                  "Welcome Back, ",
+                  style: TextStyle(fontSize: 27),
                 ),
                 Text(
-                  "Today's Task",
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    AnimatedContainer(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 300 + (0 * 100)),
-                      transform: Matrix4.translationValues(
-                          startAnimating
-                              ? 0
-                              : MediaQuery.of(context).size.width,
-                          0,
-                          0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 10,
-                        ),
-                        child: TaskCard(
-                          mood: "Stress",
-                        ),
-                      ),
-                    ),
-                    AnimatedContainer(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 300 + (1 * 100)),
-                      transform: Matrix4.translationValues(
-                          startAnimating
-                              ? 0
-                              : MediaQuery.of(context).size.width,
-                          0,
-                          0),
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: quotes.isEmpty
-                              ? Shimmer.fromColors(
-                                  baseColor: Colors.grey,
-                                  highlightColor: Colors.white10,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 75,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                  ),
-                                )
-                              : QuotesCard(
-                                  quotes: quotes,
-                                )),
-                    ),
-                    AnimatedContainer(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 300 + (2 * 100)),
-                      transform: Matrix4.translationValues(
-                          startAnimating
-                              ? 0
-                              : MediaQuery.of(context).size.width,
-                          0,
-                          0),
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: MeditationCard()),
-                    ),
-                    AnimatedContainer(
-                      curve: Curves.easeInOut,
-                      duration: Duration(milliseconds: 300 + (3 * 100)),
-                      transform: Matrix4.translationValues(
-                          startAnimating
-                              ? 0
-                              : MediaQuery.of(context).size.width,
-                          0,
-                          0),
-                      child: Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: GestureDetector(
-                              onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          BetterSleepScreen())),
-                              child: SleepCard())),
-                    ),
-                  ],
+                  user.username,
+                  style: const TextStyle(
+                      fontSize: 27, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-          ),
-        ));
+            const SizedBox(
+              height: 25,
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              height: 160,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text(
+                    "How are you feeling today ?",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const MoodLevel()
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Text(
+              "Today's Task",
+              style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            ListView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 300 + (0 * 100)),
+                  transform: Matrix4.translationValues(
+                      startAnimating ? 0 : MediaQuery.of(context).size.width,
+                      0,
+                      0),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: 10,
+                    ),
+                    child: TaskCard(),
+                  ),
+                ),
+                AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 300 + (1 * 100)),
+                  transform: Matrix4.translationValues(
+                      startAnimating ? 0 : MediaQuery.of(context).size.width,
+                      0,
+                      0),
+                  child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: quotes.isEmpty
+                          ? Shimmer.fromColors(
+                              baseColor: Colors.grey,
+                              highlightColor: Colors.white10,
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 75,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15)),
+                              ),
+                            )
+                          : QuotesCard(
+                              quotes: quotes,
+                            )),
+                ),
+                AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 300 + (2 * 100)),
+                  transform: Matrix4.translationValues(
+                      startAnimating ? 0 : MediaQuery.of(context).size.width,
+                      0,
+                      0),
+                  child: const Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: MeditationCard()),
+                ),
+                AnimatedContainer(
+                  curve: Curves.easeInOut,
+                  duration: const Duration(milliseconds: 300 + (3 * 100)),
+                  transform: Matrix4.translationValues(
+                      startAnimating ? 0 : MediaQuery.of(context).size.width,
+                      0,
+                      0),
+                  child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const BetterSleepScreen())),
+                          child: const SleepCard())),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 }

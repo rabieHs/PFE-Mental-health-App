@@ -5,13 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:just_audio/just_audio.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/meditation/services/meditation_services.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:ripple_wave/ripple_wave.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 import 'package:siri_wave/siri_wave.dart';
 
+import '../../core/theme/colors.dart';
+import '../../core/theme/theme.dart';
 import '../../music/widgets/seek_bar.dart';
 import '../models/meditation_model.dart';
 
@@ -89,7 +90,7 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
                 child: Icon(
                   Iconsax.arrow_left_2,
                   size: 30,
-                  color: Colors.black,
+                  color: isdarkTheme(context) ? Colors.white : Colors.black,
                 ),
               ),
             ),
@@ -101,11 +102,11 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
               stream: audioPlayer.playerStateStream,
               builder: (context, snapshot) {
                 if (snapshot.data!.playing == true) {
-                  waveController.setAmplitude(3);
+                  waveController.setAmplitude(1);
                   waveController.setSpeed(0.05);
 
                   waveController.setColor(Colors.red);
-                  waveController.setFrequency(5);
+                  waveController.setFrequency(2);
                 } else {
                   waveController.setAmplitude(0);
                   waveController.setSpeed(0.0);
@@ -199,7 +200,6 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
                 },
                 child: Icon(
                   Icons.skip_previous_outlined,
-                  color: Colors.black,
                   size: 50,
                 ),
               ),
@@ -273,7 +273,6 @@ class _MeditationPlayScreenState extends State<MeditationPlayScreen> {
                 child: Icon(
                   Icons.skip_next_outlined,
                   size: 50,
-                  color: Colors.black,
                 ),
               )
             ],

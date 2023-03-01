@@ -25,18 +25,17 @@ class _SoundScreenState extends State<SoundScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Claming Sounds"),
+        title: const Text(
+          "Calming Sounds",
+        ),
       ),
       body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: ((context, innerBoxIsScrolled) => [
                 SliverAppBar(
                   expandedHeight: 150,
-                  backgroundColor: Colors.white,
                   automaticallyImplyLeading: false,
                   flexibleSpace: FlexibleSpaceBar(
                     title: Padding(
@@ -56,16 +55,16 @@ class _SoundScreenState extends State<SoundScreen> {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Sounds",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: widget.sounds.length,
                         itemBuilder: (context, index) {

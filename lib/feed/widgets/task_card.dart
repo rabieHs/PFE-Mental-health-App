@@ -1,16 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/feed/models/tasks.dart';
 import 'package:mental_health_app/feed/services/tasks_services.dart';
 import 'package:mental_health_app/feed/widgets/check_button.dart';
 import 'package:mental_health_app/feed/widgets/shimmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../auth/services/auth_services.dart';
+import '../../core/theme/colors.dart';
+
 class TaskCard extends StatefulWidget {
-  final String mood;
   const TaskCard({
     Key? key,
-    required this.mood,
   }) : super(key: key);
 
   @override
@@ -20,15 +21,18 @@ class TaskCard extends StatefulWidget {
 class _TaskCardState extends State<TaskCard> {
   final TasksServices _tasksServices = TasksServices();
   List<Tasks>? tasks;
+  String mood = '';
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     getTasks();
   }
 
   getTasks() async {
-    tasks = await _tasksServices.saveDatalocally(widget.mood);
+    tasks = await _tasksServices.saveDatalocally(await AuthServices()
+        .getUserMood(FirebaseAuth.instance.currentUser!.uid));
     setState(() {});
   }
 

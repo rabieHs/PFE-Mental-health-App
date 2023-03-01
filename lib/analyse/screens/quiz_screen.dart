@@ -113,9 +113,9 @@ class _Quiz2State extends State<Quiz2> {
             child: Text(
               answer.answerText,
               style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey.shade800),
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           )),
     );

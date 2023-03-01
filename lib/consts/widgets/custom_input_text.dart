@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../colors.dart';
+import '../../core/theme/colors.dart';
 
 class CustomInputText extends StatelessWidget {
   final TextEditingController textEditingController;
@@ -27,12 +27,6 @@ class CustomInputText extends StatelessWidget {
       },
       controller: textEditingController,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey, width: 2),
-            borderRadius: BorderRadius.circular(10)),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: primaryColor, width: 2),
-            borderRadius: BorderRadius.circular(10)),
         contentPadding: EdgeInsets.only(top: 14, left: 10),
         hintText: hint,
       ),

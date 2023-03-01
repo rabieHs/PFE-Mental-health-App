@@ -55,6 +55,8 @@ class TasksServices {
             .toList()
         : [];
     final savedTaskType = _preferences.getString('taskType');
+    print("tasks types is $savedTaskType");
+    print("new tasks types is $mood");
     if (tasks.every((task) => task.isCompleted == true) ||
         savedTaskType != mood) {
       _preferences.remove('tasks');

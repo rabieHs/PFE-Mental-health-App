@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:mental_health_app/analyse/screens/text_classification.dart';
 import 'package:mental_health_app/auth/provider/user_provider.dart';
 import 'package:mental_health_app/auth/services/auth_services.dart';
-import 'package:mental_health_app/consts/colors.dart';
 
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
+import 'package:mental_health_app/core/theme/theme.dart';
 import 'package:mental_health_app/forum/services/post_services.dart';
 import 'package:mental_health_app/screens/analyse_screen.dart';
 import 'package:mental_health_app/screens/home.dart';
@@ -66,7 +66,9 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(primarySwatch: Colors.cyan, fontFamily: 'Poppins'),
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ThemeMode.system,
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
@@ -79,7 +81,9 @@ class _MyAppState extends State<MyApp> {
 
                   ///home Screen
                 } else {
-                  return HomeScreen(); //EmotionRecognitionScreen();
+                  return Quiz2(
+                      questionList: getDASS21question(),
+                      questionType: "gad7"); //EmotionRecognitionScreen();
                 }
               } else if (snapshot.hasError) {
                 return (Center(

@@ -25,7 +25,6 @@ class _ForumScreenState extends State<ForumScreen> {
     final posts = context.watch<PostsProvider>().posts;
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [

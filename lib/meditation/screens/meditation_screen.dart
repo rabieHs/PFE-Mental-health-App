@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:mental_health_app/consts/colors.dart';
+
 import 'package:mental_health_app/meditation/models/meditation_model.dart';
 import 'package:mental_health_app/meditation/services/meditation_services.dart';
 
+import '../../core/theme/colors.dart';
 import '../widgets/meditation_play_card.dart';
 import '../widgets/top_listened_card.dart';
 
@@ -53,28 +51,26 @@ class _MeditationScreenState extends State<MeditationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Meditation"),
+        title: const Text("Meditation"),
         elevation: 0,
       ),
-      backgroundColor: Colors.white,
       body: meditationList.isEmpty
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Top Listened",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -96,15 +92,15 @@ class _MeditationScreenState extends State<MeditationScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
+                    const Text(
                       "Discover",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     ListView.builder(
@@ -119,7 +115,7 @@ class _MeditationScreenState extends State<MeditationScreen> {
                             index: _index);
                       },
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                     )
                   ],
                 ),

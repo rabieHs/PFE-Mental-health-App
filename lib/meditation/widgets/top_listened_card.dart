@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mental_health_app/meditation/screens/meditation_play_screen.dart';
 import 'package:mental_health_app/meditation/services/meditation_services.dart';
 
+import '../../core/theme/theme.dart';
 import '../models/meditation_model.dart';
 
 class TopListenedCard extends StatelessWidget {
@@ -86,7 +87,12 @@ class TopListenedCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Text("Start"),
+                  child: Text(
+                    "Start",
+                    style: TextStyle(
+                      color: isdarkTheme(context) ? Colors.white : Colors.black,
+                    ),
+                  ),
                 ),
               ),
             )

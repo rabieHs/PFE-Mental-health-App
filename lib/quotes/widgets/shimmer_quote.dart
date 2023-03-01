@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../core/theme/colors.dart';
 
 class ShimmerQuote extends StatelessWidget {
   const ShimmerQuote({super.key, required this.height, required this.widht});

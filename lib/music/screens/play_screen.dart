@@ -6,13 +6,13 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:just_audio/just_audio.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:mental_health_app/music/services/music_services.dart';
 import 'package:mental_health_app/sleepBetter/services/sleep_services.dart';
 import 'package:ripple_wave/ripple_wave.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 
+import '../../core/theme/colors.dart';
 import '../widgets/seek_bar.dart';
 
 class PlayScreen extends StatefulWidget {
@@ -87,7 +87,6 @@ class _PlayScreenState extends State<PlayScreen> {
                 child: Icon(
                   Iconsax.arrow_left_2,
                   size: 30,
-                  color: Colors.black,
                 ),
               ),
             ),
@@ -194,7 +193,6 @@ class _PlayScreenState extends State<PlayScreen> {
                 },
                 child: Icon(
                   Icons.skip_previous_outlined,
-                  color: Colors.black,
                   size: 50,
                 ),
               ),
@@ -272,7 +270,6 @@ class _PlayScreenState extends State<PlayScreen> {
                 child: Icon(
                   Icons.skip_next_outlined,
                   size: 50,
-                  color: Colors.black,
                 ),
               )
             ],

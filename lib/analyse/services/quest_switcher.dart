@@ -11,9 +11,9 @@ class QuestSwitcher {
       case "Happy":
         if (textClassification == "Positive") {
           AnalyseServices analyseServices = AnalyseServices();
-          analyseServices.checkAndUpdateUserMood("Happy");
+          analyseServices.checkAndUpdateUserMood("Normal");
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeScreen()));
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         } else {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => Quiz2(
@@ -68,9 +68,9 @@ class QuestSwitcher {
       case "Neutral":
         if (textClassification == "Positive") {
           AnalyseServices analyseServices = AnalyseServices();
-          analyseServices.checkAndUpdateUserMood("Happy");
+          analyseServices.checkAndUpdateUserMood("Normal");
           Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => HomeScreen()));
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         } else {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => Quiz2(

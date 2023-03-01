@@ -5,8 +5,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'package:iconsax/iconsax.dart';
+import 'package:mental_health_app/core/theme/theme.dart';
 
-import '../consts/globals.dart';
+import '../core/globals.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,15 +31,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: Icon(
           Iconsax.menu,
-          color: Colors.black,
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: Icon(Iconsax.notification),
+            child: Icon(
+              Iconsax.notification,
+            ),
           )
         ],
-        backgroundColor: Colors.white,
         elevation: 0,
       ),
       body: Center(

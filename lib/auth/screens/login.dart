@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/auth/screens/register.dart';
 import 'package:mental_health_app/consts/clipper.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/screens/home.dart';
 
 import 'package:mental_health_app/auth/services/auth_services.dart';
@@ -12,6 +12,7 @@ import 'package:mental_health_app/services/notification_services.dart';
 import 'package:mental_health_app/auth/widgets/custom_text_field.dart';
 
 import '../../consts/widgets/custom_button.dart';
+import '../../core/theme/colors.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -109,8 +110,15 @@ class _LoginState extends State<Login> {
     String? res = await AuthServices()
         .loginUser(emailController.text, passwordController.text);
     if (res == "sucess") {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
+      await AuthServices().checkUser().then((isCheked) {
+        if (isCheked) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => HomeScreen()));
+        } else {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => EmotionRecognitionScreen()));
+        }
+      });
     } else {
       showSnackBar(res!, context, Colors.red);
     }

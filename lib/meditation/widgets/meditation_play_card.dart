@@ -25,7 +25,7 @@ class MeditationPlayCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         padding: EdgeInsets.all(13),
-        height: 80,
+        height: 70,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(15)),
@@ -38,7 +38,7 @@ class MeditationPlayCard extends StatelessWidget {
                 Text(
                   meditation.title,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 14,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
                 ),
@@ -59,7 +59,7 @@ class MeditationPlayCard extends StatelessWidget {
                     meditation.listen,
                   );
                 } else {
-                  await meditationServices.updatemeditationListenForSleep(
+                  await meditationServices.updatemeditationListen(
                     meditation.docId,
                     meditation.listen,
                   );
@@ -74,7 +74,7 @@ class MeditationPlayCard extends StatelessWidget {
               child: Icon(
                 Icons.play_circle_fill,
                 color: Colors.white,
-                size: 45,
+                size: 40,
               ),
             )
           ],

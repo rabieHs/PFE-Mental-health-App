@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:mental_health_app/consts/colors.dart';
+import 'package:mental_health_app/meditation/screens/meditation_screen.dart';
+
+import '../../core/theme/colors.dart';
 
 class MeditationCard extends StatefulWidget {
   const MeditationCard({super.key});
@@ -48,21 +50,26 @@ class _MeditationCardState extends State<MeditationCard> {
                         fontWeight: FontWeight.w200),
                   ),
                 ),
-                Container(
-                  width: 120,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(7)),
-                  child: Center(
-                      child: Text(
-                    'JOIN NOW',
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: greyColor,
-                        fontFamily: 'Poppoins',
-                        fontWeight: FontWeight.w800),
-                  )),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          MeditationScreen(meditationType: "Meditation"))),
+                  child: Container(
+                    width: 120,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(7)),
+                    child: Center(
+                        child: Text(
+                      'JOIN NOW',
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: greyColor,
+                          fontFamily: 'Poppoins',
+                          fontWeight: FontWeight.w800),
+                    )),
+                  ),
                 )
               ],
             ),

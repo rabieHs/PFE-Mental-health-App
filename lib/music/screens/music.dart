@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/auth/services/auth_services.dart';
+import 'package:mental_health_app/core/widgets/loading_list_view_widget.dart';
 import 'package:mental_health_app/feed/widgets/shimmer_widget.dart';
 import 'package:mental_health_app/music/models/music.dart';
 import 'package:mental_health_app/music/screens/play_screen.dart';
@@ -29,127 +30,22 @@ class _MusicScreenState extends State<MusicScreen> {
             child: FutureBuilder<List<Music>>(
                 future: _musicServices.getMusic(),
                 builder: (context, snapshot) {
-                  final data = snapshot.data;
                   if (!snapshot.hasData) {
                     return Center(
-                      child: Text("no Music"),
+                      child: Text("error Music"),
                     );
                   }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  final data = snapshot.data!;
+                  if (data.isEmpty) {
+                    return LoadingListViewWidget();
+                  }
+
+                  if (snapshot.hasError) {
                     return Center(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ShimmerWidget(height: 50, widht: 50),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  ShimmerWidget(height: 15, widht: 200),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ShimmerWidget(height: 15, widht: 200),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ShimmerWidget(height: 50, widht: 50),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  ShimmerWidget(height: 15, widht: 200),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ShimmerWidget(height: 15, widht: 200),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ShimmerWidget(height: 50, widht: 50),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  ShimmerWidget(height: 15, widht: 200),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ShimmerWidget(height: 15, widht: 200),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ShimmerWidget(height: 50, widht: 50),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  ShimmerWidget(height: 15, widht: 200),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ShimmerWidget(height: 15, widht: 200),
-                                ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ShimmerWidget(height: 50, widht: 50),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                children: [
-                                  ShimmerWidget(height: 15, widht: 200),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  ShimmerWidget(height: 15, widht: 200),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                      child: Text("Error"),
                     );
                   }
+                  if (snapshot.connectionState == ConnectionState.waiting) {}
                   return Column(
                     children: [
                       BestListenedMusic(

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/music/models/music.dart';
 
+import '../../core/theme/colors.dart';
 import '../screens/play_screen.dart';
 import '../services/music_services.dart';
 

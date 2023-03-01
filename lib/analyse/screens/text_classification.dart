@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/analyse/services/quest_switcher.dart';
 
-import 'package:mental_health_app/consts/colors.dart';
 import 'package:mental_health_app/consts/widgets/custom_button.dart';
 
+import '../../core/theme/colors.dart';
 import '../services/text_classifier.dart';
 
 class TextClassificationScreen extends StatefulWidget {

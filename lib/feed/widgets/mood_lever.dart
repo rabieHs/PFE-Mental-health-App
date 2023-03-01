@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_health_app/auth/services/auth_services.dart';
-import 'package:mental_health_app/consts/colors.dart';
 
+import '../../core/theme/colors.dart';
 import '../services/feed_services.dart';
 
 class MoodLevel extends StatefulWidget {

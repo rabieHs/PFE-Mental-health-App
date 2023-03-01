@@ -9,7 +9,7 @@ import 'package:mental_health_app/screens/home.dart';
 import 'package:mental_health_app/auth/services/auth_services.dart';
 import 'package:mental_health_app/services/notification_services.dart';
 
-import '../../consts/colors.dart';
+import '../../core/theme/colors.dart';
 import '../widgets/custom_text_field.dart';
 import '../../consts/widgets/custom_button.dart';
 

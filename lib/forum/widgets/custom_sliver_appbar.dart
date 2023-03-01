@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_app/core/theme/theme.dart';
 import 'package:mental_health_app/forum/screens/add_post_screen.dart';
 
-import '../../consts/colors.dart';
+import '../../core/theme/colors.dart';
 
 class CustomSliverAppBar extends StatelessWidget {
   final String profilepic;
@@ -15,7 +16,6 @@ class CustomSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       elevation: 0,
       collapsedHeight: 70,
-      backgroundColor: Colors.white,
       expandedHeight: 100,
       leadingWidth: MediaQuery.of(context).size.width,
       flexibleSpace: FlexibleSpaceBar(
@@ -27,9 +27,12 @@ class CustomSliverAppBar extends StatelessWidget {
           children: [
             Text(
               "Share your story",
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Container(
@@ -52,7 +55,6 @@ class CustomSliverAppBar extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
                         border: Border.all(
                           width: 1,
                           color: greyColor,

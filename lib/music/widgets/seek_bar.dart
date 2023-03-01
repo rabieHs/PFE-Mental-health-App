@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:mental_health_app/consts/colors.dart';
+
+import '../../core/theme/colors.dart';
 
 class SeekBarData {
   final Duration position;
