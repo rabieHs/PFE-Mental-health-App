@@ -1,10 +1,8 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/analyse/services/quest_switcher.dart';
-
 import 'package:mental_health_app/consts/widgets/custom_button.dart';
-
+import 'package:speech_to_text/speech_to_text.dart';
 import '../../core/theme/colors.dart';
 import '../services/text_classifier.dart';
 
@@ -18,6 +16,7 @@ class TextClassificationScreen extends StatefulWidget {
 }
 
 class _TextClassificationScreenState extends State<TextClassificationScreen> {
+  SpeechToText speechToText = SpeechToText();
   TextEditingController _controller = TextEditingController();
   Classifier classifier = Classifier();
   List<String> statements = [];
@@ -27,6 +26,7 @@ class _TextClassificationScreenState extends State<TextClassificationScreen> {
   ];
 
   bool isloading = true;
+  bool isLestinig = false;
   loadModel() async {
     await classifier.loadModel();
     isloading = false;
@@ -55,47 +55,79 @@ class _TextClassificationScreenState extends State<TextClassificationScreen> {
               "How About Your Day ?",
               style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Text(
+            const Text(
               "can you write a short paragraph about your day ?",
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+              style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 20,
+            const SizedBox(
+              height: 10,
             ),
             TextFormField(
               controller: _controller,
-              minLines: 8,
-              maxLines: 25,
+              minLines: 5,
+              maxLines: 10,
               decoration: InputDecoration(
                   hintText: "write here...",
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(width: 10),
+                      borderSide: const BorderSide(width: 10),
                       borderRadius: BorderRadius.circular(10))),
             ),
-            SizedBox(
-              height: 20,
+            const SizedBox(
+              height: 10,
             ),
             Align(
               alignment: Alignment.center,
-              child: Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                    color: secondaryColor,
-                    borderRadius: BorderRadius.circular(70)),
-                child: Center(
-                  child: Icon(
-                    Icons.mic,
-                    size: 40,
-                    color: Colors.white,
+              child: AvatarGlow(
+                endRadius: 70,
+                animate: isLestinig,
+                duration: const Duration(milliseconds: 1500),
+                glowColor: primaryColor,
+                repeat: true,
+                repeatPauseDuration: const Duration(milliseconds: 1),
+                showTwoGlows: true,
+                child: GestureDetector(
+                  onTapDown: (details) async {
+                    if (!isLestinig) {
+                      bool available = await speechToText.initialize();
+                      if (available) {
+                        setState(() {
+                          isLestinig = true;
+                          speechToText.listen(onResult: (result) {
+                            setState(() {
+                              _controller.text = result.recognizedWords;
+                            });
+                          });
+                        });
+                      }
+                    }
+                  },
+                  onTapUp: (details) {
+                    setState(() {
+                      isLestinig = false;
+                    });
+                    speechToText.stop();
+                  },
+                  child: Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                        color: secondaryColor,
+                        borderRadius: BorderRadius.circular(70)),
+                    child: Center(
+                      child: Icon(
+                        isLestinig ? Icons.mic : Icons.mic_none,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Align(
@@ -122,8 +154,8 @@ class _TextClassificationScreenState extends State<TextClassificationScreen> {
                         });
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: const Duration(milliseconds: 500),
+                          const SnackBar(
+                            duration: Duration(milliseconds: 500),
                             content: Text(
                               "Enter Statement",
                             ),
@@ -131,7 +163,7 @@ class _TextClassificationScreenState extends State<TextClassificationScreen> {
                         );
                       }
                     },
-                    child: CustomButton(text: "Next"))),
+                    child: const CustomButton(text: "Next"))),
           ],
         ),
       ),

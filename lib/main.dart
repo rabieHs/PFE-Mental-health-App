@@ -54,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     bool val;
     authServices.checkUser().then((value) {
       checked = value;
+      print("checked: $value");
       authServices.getUserData(context);
       setState(() {});
     });
@@ -87,10 +88,9 @@ class _MyAppState extends State<MyApp> {
                   if (snapshot.hasData) {
                     print("yes data");
 
-                    if (checked != true) {
-                      return Quiz2(
-                          questionList: getDASS21question(),
-                          questionType: "gad7"); //EmotionRecognitionScreen();
+                    if (checked == false) {
+                      return TextClassificationScreen(
+                          emotion: "Sad"); //EmotionRecognitionScreen();
 
                     } else {
                       return const HomeScreen(); //home

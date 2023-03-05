@@ -66,6 +66,8 @@ dependencies:
   uuid: ^3.0.7
   timeago: ^3.3.0
   siri_wave: ^0.2.2
+  speech_to_text: ^6.1.1
+  avatar_glow: ^2.0.2
  
 
   
