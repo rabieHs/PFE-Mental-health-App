@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
     authServices.checkUser().then((value) {
       checked = value;
       print("checked: $value");
-      authServices.getUserData(context);
+
       setState(() {});
     });
   }
@@ -85,13 +85,13 @@ class _MyAppState extends State<MyApp> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
+                  authServices.getUserData(context);
                   if (snapshot.hasData) {
                     print("yes data");
 
                     if (checked == false) {
                       return TextClassificationScreen(
                           emotion: "Sad"); //EmotionRecognitionScreen();
-
                     } else {
                       return const HomeScreen(); //home
                     }
