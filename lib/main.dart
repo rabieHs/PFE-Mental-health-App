@@ -29,7 +29,12 @@ void main() async {
   print(isView);
   runApp(
     SplashScreen(onInitializeComplete: () {
-      runApp(isView != null ? const MyApp() : const OnBoardingScreen());
+      runApp(isView != null
+          ? MultiProvider(providers: [
+              ChangeNotifierProvider(create: (context) => UserProvider()),
+              ChangeNotifierProvider(create: (context) => PostsProvider()),
+            ], child: const MyApp())
+          : const OnBoardingScreen());
     }),
   );
 }
@@ -55,7 +60,7 @@ class _MyAppState extends State<MyApp> {
     authServices.checkUser().then((value) {
       checked = value;
       print("checked: $value");
-
+      authServices.getUserData(context);
       setState(() {});
     });
   }
@@ -70,42 +75,35 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: const MediaQueryData(),
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => UserProvider()),
-          ChangeNotifierProvider(create: (context) => PostsProvider()),
-        ],
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: ThemeMode.system,
-            home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.active) {
-                  authServices.getUserData(context);
-                  if (snapshot.hasData) {
-                    print("yes data");
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: ThemeMode.system,
+          home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  print("yes data");
 
-                    if (checked == false) {
-                      return TextClassificationScreen(
-                          emotion: "Sad"); //EmotionRecognitionScreen();
-                    } else {
-                      return const HomeScreen(); //home
-                    }
-                  } else if (snapshot.hasError) {
-                    return (Center(
-                      child: Text('${snapshot.error}'),
-                    ));
+                  if (checked == false) {
+                    return TextClassificationScreen(
+                        emotion: "Sad"); //EmotionRecognitionScreen();
+                  } else {
+                    return const HomeScreen(); //home
                   }
+                } else if (snapshot.hasError) {
+                  return (Center(
+                    child: Text('${snapshot.error}'),
+                  ));
                 }
+              }
 
-                return const Login();
-              },
-            )),
-      ),
+              return const Login();
+            },
+          )),
     );
   }
 }
