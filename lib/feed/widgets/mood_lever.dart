@@ -56,7 +56,7 @@ class _MoodLevelState extends State<MoodLevel> {
                   height: 70,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      border: Mood == "Happy"
+                      border: Mood == "Normal"
                           ? Border.all(width: 3, color: primaryColor)
                           : null),
                   child: Image.asset(

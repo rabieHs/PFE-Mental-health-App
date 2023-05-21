@@ -47,11 +47,50 @@ class _PlayScreenState extends State<PlayScreen> {
           Uri.parse(song.url),
         ),
       );
+      Future.delayed(Duration(seconds: 1)).then((v) {
+        showHeadphonesDialog(context);
+      });
     }
     audioPlayer.setAudioSource(ConcatenatingAudioSource(children: source),
         initialIndex: widget.index);
     _index = widget.index;
     setState(() {});
+  }
+
+  void showHeadphonesDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Center(child: Text('Use Headphones')),
+          surfaceTintColor: Colors.white,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                image: AssetImage("assets/images/earphones.gif"),
+                width: 150,
+                height: 150,
+              ),
+              Text(
+                'For a better experience, please use headphones.',
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Stream<SeekBarData> get _seekBarDataStream =>

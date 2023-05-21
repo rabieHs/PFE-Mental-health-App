@@ -51,8 +51,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: Column(
         children: const [
           ListTile(
-            leading: Image(
-              image: AssetImage("assets/images/privacy.png"),
+            leading: Icon(
+              Iconsax.information5,
+              color: primaryColor,
             ),
             title: Text("Personal info "),
           ),
@@ -64,8 +65,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text("Statistics"),
           ),
           ListTile(
-            leading: Image(
-              image: AssetImage("assets/images/personal_info.png"),
+            leading: Icon(
+              Iconsax.security_user,
+              color: primaryColor,
             ),
             title: Text("Privacy and policy "),
           ),
@@ -88,8 +90,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: Image(
-              image: AssetImage("assets/images/log.png"),
+            leading: Icon(
+              Iconsax.login_15,
+              color: Colors.red,
             ),
             title: Text(
               "Sign out ",

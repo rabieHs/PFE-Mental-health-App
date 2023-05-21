@@ -27,14 +27,14 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
               onTap: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(Icons.arrow_back)),
-          title: Text("Better Sleep"),
+              child: const Icon(Icons.arrow_back)),
+          title: const Text("Better Sleep"),
           elevation: 0,
         ),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverAppBar(
+            const SliverAppBar(
                 centerTitle: true,
                 expandedHeight: 70,
                 automaticallyImplyLeading: false,
@@ -54,45 +54,46 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                 ))
           ],
           body: Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     "For You",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   GestureDetector(
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MeditationScreen(
+                          builder: (context) => const MeditationScreen(
                                 meditationType: 'Sleep',
                               ))),
-                      child: SleepMeditationCard()),
-                  SizedBox(
+                      child: const SleepMeditationCard()),
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     "Discover",
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   GridView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10),
                     children: [
                       GestureDetector(
                           onTap: () async {
@@ -105,22 +106,36 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                                       sounds: sounds,
                                     )));
                           },
-                          child: SleepGridCard(
+                          child: const SleepGridCard(
                               color: greenColor, title: 'Calming Sounds')),
-                      SleepGridCard(
+                      const SleepGridCard(
                         color: pinkColor,
                         title: 'Natural Sounds',
                       ),
-                      SleepGridCard(
-                        color: orangeColor,
-                        title: 'Quran',
+                      GestureDetector(
+                        onTap: () async {
+                          List<Music> sounds =
+                              await SleepServices().getCalmingSounds('Quran');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SoundScreen(
+                                    title:
+                                        "Close Your Eyes And Listen tu Quran.",
+                                    sleepType: "Quran",
+                                    sounds: sounds,
+                                  )));
+                        },
+                        child: const SleepGridCard(
+                          color: orangeColor,
+                          title: 'Quran',
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => TipsForSleepingScreen()));
+                              builder: (context) =>
+                                  const TipsForSleepingScreen()));
                         },
-                        child: SleepGridCard(
+                        child: const SleepGridCard(
                           color: vaioletColor,
                           title: 'Tips For Sleeping',
                         ),
