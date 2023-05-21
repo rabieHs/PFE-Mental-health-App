@@ -47,20 +47,21 @@ class _PlayScreenState extends State<PlayScreen> {
           Uri.parse(song.url),
         ),
       );
-      Future.delayed(Duration(seconds: 1)).then((v) {
-        showHeadphonesDialog(context);
-      });
     }
     audioPlayer.setAudioSource(ConcatenatingAudioSource(children: source),
         initialIndex: widget.index);
     _index = widget.index;
     setState(() {});
+    Future.delayed(Duration(seconds: 1)).then((v) {
+      showHeadphonesDialog(context);
+    });
   }
 
   void showHeadphonesDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        print("displayer headphones alert");
         return AlertDialog(
           backgroundColor: Colors.white,
           title: Center(child: Text('Use Headphones')),
@@ -76,6 +77,7 @@ class _PlayScreenState extends State<PlayScreen> {
               Text(
                 'For a better experience, please use headphones.',
                 textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black),
               ),
             ],
           ),
