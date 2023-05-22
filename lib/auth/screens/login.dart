@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
+import 'package:mental_health_app/auth/screens/forget_password.dart';
 import 'package:mental_health_app/auth/screens/register.dart';
 import 'package:mental_health_app/consts/clipper.dart';
 import 'package:mental_health_app/screens/home.dart';
@@ -74,6 +75,17 @@ class _LoginState extends State<Login> {
                 text: "LOGIN",
               ),
             ),
+            SizedBox(
+              height: 10,
+            ),
+            TextButton(
+                onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ForgetPassword())),
+                child: Text(
+                  "Forget Password?",
+                  style: TextStyle(
+                      color: primaryColor, fontWeight: FontWeight.bold),
+                )),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: Row(

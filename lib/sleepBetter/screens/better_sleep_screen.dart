@@ -108,9 +108,22 @@ class _BetterSleepScreenState extends State<BetterSleepScreen> {
                           },
                           child: const SleepGridCard(
                               color: greenColor, title: 'Calming Sounds')),
-                      const SleepGridCard(
-                        color: pinkColor,
-                        title: 'Natural Sounds',
+                      GestureDetector(
+                        onTap: () async {
+                          List<Music> sounds = await SleepServices()
+                              .getCalmingSounds('NaturalSounds');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SoundScreen(
+                                    title:
+                                        "Close Your Eyes And Listen to The Nature.",
+                                    sleepType: "NaturalSounds",
+                                    sounds: sounds,
+                                  )));
+                        },
+                        child: const SleepGridCard(
+                          color: pinkColor,
+                          title: 'Natural Sounds',
+                        ),
                       ),
                       GestureDetector(
                         onTap: () async {

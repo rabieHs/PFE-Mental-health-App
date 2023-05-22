@@ -95,7 +95,7 @@ class _Quiz2State extends State<Quiz2> {
 
   Widget _answerButton(Answer answer) {
     bool isSelected = answer == selectedAnswer;
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         _changeAnswer(answer);
       },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
 import 'package:mental_health_app/auth/screens/login.dart';
 import 'package:mental_health_app/consts/clipper.dart';
@@ -28,95 +29,106 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Iconsax.arrow_left_2),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/mindwell.png",
-              width: 100,
-              height: 100,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            Text(
-              "Login",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            CustomTextField(
-                Controller: nameController,
-                icon: Icons.email,
-                hint: 'enter your name',
-                isPassword: false),
-            SizedBox(
-              height: 15,
-            ),
-            CustomTextField(
-                Controller: emailController,
-                icon: Icons.password,
-                hint: 'enter your email',
-                isPassword: false),
-            SizedBox(
-              height: 15,
-            ),
-            CustomTextField(
-                Controller: passwordController,
-                icon: Icons.password,
-                hint: 'enter your password',
-                isPassword: true),
-            SizedBox(
-              height: 15,
-            ),
-            CustomTextField(
-                Controller: confirmPasswordController,
-                icon: Icons.password,
-                hint: 'confirm your password',
-                isPassword: true),
-            SizedBox(
-              height: 15,
-            ),
-            GestureDetector(
-              onTap: signUpUser,
-              child: CustomButton(
-                text: "REGISTER",
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 30),
-              child: Row(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  Image.asset(
+                    "assets/images/mindwell.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
                   Text(
-                    "HAVE AN ACCOUNT? ",
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w800),
+                    "Login",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w900),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  CustomTextField(
+                      Controller: nameController,
+                      icon: Icons.email,
+                      hint: 'enter your name',
+                      isPassword: false),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextField(
+                      Controller: emailController,
+                      icon: Icons.password,
+                      hint: 'enter your email',
+                      isPassword: false),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextField(
+                      Controller: passwordController,
+                      icon: Icons.password,
+                      hint: 'enter your password',
+                      isPassword: true),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextField(
+                      Controller: confirmPasswordController,
+                      icon: Icons.password,
+                      hint: 'confirm your password',
+                      isPassword: true),
+                  SizedBox(
+                    height: 15,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Login()));
-                    },
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          color: primaryColor),
+                    onTap: signUpUser,
+                    child: CustomButton(
+                      text: "REGISTER",
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "HAVE AN ACCOUNT? ",
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w800),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Login()));
+                          },
+                          child: Text(
+                            "LOGIN",
+                            style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w800,
+                                color: primaryColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    ));
+            ),
+          ),
+        ));
   }
 
   void signUpUser() async {

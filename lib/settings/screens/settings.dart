@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/core/theme/colors.dart';
+import 'package:mental_health_app/settings/services/settings_services.dart';
 import 'package:provider/provider.dart';
 
 import '../../auth/model/user.dart';
@@ -26,18 +27,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             _profileHeader(user),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             SafeArea(
-                minimum: EdgeInsets.symmetric(vertical: 20),
+                minimum: const EdgeInsets.symmetric(vertical: 20),
                 child: _profileMenu())
           ],
         ),
@@ -49,29 +50,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 18.0),
       child: Column(
-        children: const [
-          ListTile(
+        children: [
+          const ListTile(
             leading: Icon(
               Iconsax.information5,
               color: primaryColor,
             ),
             title: Text("Personal info "),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Iconsax.chart_35,
               color: primaryColor,
             ),
             title: Text("Statistics"),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Iconsax.security_user,
               color: primaryColor,
             ),
             title: Text("Privacy and policy "),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Iconsax.flag_25,
               color: primaryColor,
@@ -80,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               "About Mindwell ",
             ),
           ),
-          ListTile(
+          const ListTile(
             leading: Icon(
               Iconsax.sms5,
               color: primaryColor,
@@ -90,13 +91,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Iconsax.login_15,
               color: Colors.red,
             ),
-            title: Text(
-              "Sign out ",
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+            title: GestureDetector(
+              onTap: () {
+                SettingsServices().signOut(context);
+              },
+              child: const Text(
+                "Sign out ",
+                style:
+                    TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         ],
@@ -111,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           backgroundImage: NetworkImage(user.profileImage),
           radius: 40,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         Column(
@@ -119,10 +126,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             Text(
               user.username,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Text(user.email,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                 )),
           ],
