@@ -41,6 +41,93 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668626755088:android:f17bf5b0e5282fa1867495",
+        "android_client_info": {
+          "package_name": "com.example.mindwell_app_clean_arch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyWCMvdvwyHl3q-nzCUg1bSo7YhKNrrtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668626755088:android:bebdf371a406b85d867495",
+        "android_client_info": {
+          "package_name": "com.example.music_app_using_clean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyWCMvdvwyHl3q-nzCUg1bSo7YhKNrrtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668626755088:android:bf2230cef79d9e4f867495",
+        "android_client_info": {
+          "package_name": "com.rabie.mental_health_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyWCMvdvwyHl3q-nzCUg1bSo7YhKNrrtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668626755088-8n7bvm8iqmjo1s36u55c5um5kuiqumfc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

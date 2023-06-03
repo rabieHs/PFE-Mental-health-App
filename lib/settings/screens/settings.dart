@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:mental_health_app/core/theme/colors.dart';
+import 'package:mental_health_app/settings/screens/statistics.dart';
 import 'package:mental_health_app/settings/services/settings_services.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,7 @@ import '../../auth/model/user.dart';
 import '../../auth/provider/user_provider.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key});
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -39,14 +40,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SafeArea(
                 minimum: const EdgeInsets.symmetric(vertical: 20),
-                child: _profileMenu())
+                child: _profileMenu(user.uid))
           ],
         ),
       ),
     ));
   }
 
-  Widget _profileMenu() {
+  Widget _profileMenu(String uid) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 18.0),
       child: Column(
@@ -58,7 +59,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             title: Text("Personal info "),
           ),
-          const ListTile(
+          ListTile(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => StatisticsScreen(
+                        uid: uid,
+                      )));
+            },
             leading: Icon(
               Iconsax.chart_35,
               color: primaryColor,

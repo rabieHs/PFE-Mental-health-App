@@ -89,8 +89,9 @@ class _MyAppState extends State<MyApp> {
                   print("yes data");
 
                   if (checked == false) {
-                    return TextClassificationScreen(
-                        emotion: "Sad"); //EmotionRecognitionScreen();
+                    return Quiz2(
+                        questionList: getGAD7question(),
+                        questionType: "gad7"); // EmotionRecognitionScreen();
                   } else {
                     return const HomeScreen(); //home
                   }

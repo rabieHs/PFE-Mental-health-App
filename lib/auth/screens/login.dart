@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mental_health_app/analyse/models/questions.dart';
 import 'package:mental_health_app/analyse/screens/emotion_recognition_screen.dart';
+import 'package:mental_health_app/analyse/screens/quiz_screen.dart';
 import 'package:mental_health_app/auth/screens/forget_password.dart';
 import 'package:mental_health_app/auth/screens/register.dart';
 import 'package:mental_health_app/consts/clipper.dart';
@@ -127,8 +129,11 @@ class _LoginState extends State<Login> {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => HomeScreen()));
         } else {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => EmotionRecognitionScreen()));
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => EmotionRecognitionScreen(),
+            ),
+          );
         }
       });
     } else {

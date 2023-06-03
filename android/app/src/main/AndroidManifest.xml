@@ -6,7 +6,7 @@
    
         android:label="mental_health_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/mindwell">
         <activity
             android:name=".MainActivity"
             android:exported="true"

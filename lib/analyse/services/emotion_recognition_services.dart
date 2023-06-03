@@ -6,14 +6,18 @@ import 'package:http/http.dart' as http;
 
 class EmotionRecognitionServices {
   Future<String> startViseoCapture(CameraController controller) async {
+    print('Stop Recording');
     String Emotion = "";
     controller.startVideoRecording().then((_) {
-      Future.delayed(Duration(seconds: 2), () async {
+      Future.delayed(Duration(seconds: 5), () async {
         controller.stopVideoRecording().then((file) async {
-          print('Stop Recording');
           final bytes = File(file.path).readAsBytesSync();
-          var url = 'http://192.168.80.198:5000/predict';
-          await http.post(Uri.parse(url), body: bytes).then((response) {
+          print(bytes);
+
+          var url = 'https://emotionpredectionmindwell2.onrender.com/predict';
+          await http.post(Uri.parse(url), body: {bytes}).then((response) {
+            print(response.statusCode);
+            print(response.body);
             Emotion = json.decode(response.body)['emotion'];
             print(Emotion);
           });
@@ -30,7 +34,8 @@ class EmotionRecognitionServices {
     await Future.delayed(Duration(seconds: 5));
     final file = await controller.stopVideoRecording();
     final bytes = File(file.path).readAsBytesSync();
-    var url = 'http://192.168.80.198:5001/predict';
+    print(bytes);
+    var url = 'http://192.168.88.88:5000/predict';
     final response = await http.post(Uri.parse(url), body: bytes);
     print(response.statusCode);
     print(response.body);

@@ -36,3 +36,7 @@ const nightBlueGradienColor = LinearGradient(
     Color.fromRGBO(15, 22, 97, 1),
   ],
 );
+Color chartM1 = Color.fromRGBO(75, 135, 185, 1);
+Color chartM2 = Color.fromRGBO(192, 108, 132, 1);
+Color chartM3 = Color.fromRGBO(255, 166, 41, 1);
+Color chartM4 = Color.fromRGBO(248, 177, 149, 1);
