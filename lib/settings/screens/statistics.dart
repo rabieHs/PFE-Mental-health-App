@@ -167,7 +167,6 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   }
 
   Widget buildMoodChart(List<Map<String, dynamic>> moodData) {
-    print(moodData);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       height: 250,
@@ -208,6 +207,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             name: 'Normal',
           ),
         ],
+        // Customizing the chart
+        plotAreaBorderColor: Colors.grey,
+        // backgroundColor: Colors.white,
+
+        primaryYAxis: NumericAxis(
+          minimum: 0,
+          maximum: 100,
+          labelFormat: '{value}%',
+        ),
       ),
     );
   }

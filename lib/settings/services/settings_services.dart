@@ -69,6 +69,8 @@ class SettingsServices {
     // Calculate mood statistics for each month
     List<Map<String, dynamic>> processedData = [];
     monthlyData.forEach((monthYear, moodList) {
+      int totalMoods = moodList.length;
+
       int anxietyCount = 0;
       int depressionCount = 0;
       int stressCount = 0;
@@ -86,23 +88,29 @@ class SettingsServices {
         }
       });
 
+      // Calculate percentages
+      double anxietyPercentage = anxietyCount / totalMoods * 100;
+      double depressionPercentage = depressionCount / totalMoods * 100;
+      double stressPercentage = stressCount / totalMoods * 100;
+      double normalPercentage = normalCount / totalMoods * 100;
+
       Map<String, dynamic> monthlyStats = {
         'monthYear': monthYear,
-        'anxiety': anxietyCount,
-        'depression': depressionCount,
-        'stress': stressCount,
-        'normal': normalCount,
+        'anxiety': anxietyPercentage.round(),
+        'depression': depressionPercentage.round(),
+        'stress': stressPercentage.round(),
+        'normal': normalPercentage.round(),
       };
 
       processedData.add(monthlyStats);
     });
 
-    // Provide default values for mood categories with a count of zero
+    // Provide default values for mood categories with a percentage of zero
     List<String> moodCategories = ['anxiety', 'depression', 'stress', 'normal'];
     processedData.forEach((data) {
       moodCategories.forEach((category) {
         if (!data.containsKey(category)) {
-          data[category] = 0;
+          data[category] = 0.0;
         }
       });
     });
